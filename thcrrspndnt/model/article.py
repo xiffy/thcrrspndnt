@@ -35,7 +35,6 @@ class Article:
                           "values (?, ?, ?, ?, ?, ?)", (self.corry_id, self.share_url, self.title,
                                                         self.author, self.created_at, self.published_at,))
         self.db.conn.commit()
-        Tweeter().send_tweet(self)
 
     @property
     def tweetcount(self):
@@ -54,7 +53,6 @@ class Article:
             return False
         cached = Article().get(corry_id=corry_id)
         if cached:
-            Tweeter().send_tweet(cached)
             return cached
         return Article().cache_article(share_url=share_url, corry_id=corry_id)
 
@@ -66,6 +64,7 @@ class Article:
                 self.corry_id = corry_id
                 self.share_url = share_url
                 self.insert()
+                Tweeter().send_tweet(self)
                 return self
 
     def parse_article(self, html):
