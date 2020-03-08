@@ -24,7 +24,7 @@ class Unshorten:
             return False
         self.curs.execute("insert into unshorten (shorturl, longurl) values (?, ?)", (self.shorturl, longurl,))
         self.conn.commit()
-        self.longurl = url
+        self.longurl = longurl
 
 
     @staticmethod
