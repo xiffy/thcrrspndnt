@@ -5,6 +5,15 @@
     <title>the correspondent (english)</title>
 </head>
 <body>
-
+<table>
+{% for article in articles %}
+    <tr>
+        <td>{{ article.corry_id }}</td>
+        <td>{{ article.published_at }}</td>
+        <td><a href="{{ article.share_url }}">{{ article.title }}</a> </td>
+        <td>{{ article.author }}</td>
+    </tr>
+{% endfor %}
+</table>
 </body>
 </html>

@@ -40,6 +40,11 @@ class Article:
         self.curs.execute("select count(id) from tweet where corry_id = ?", (self.corry_id,))
         return self.curs.fetchone()[0]
 
+    def get_paged(self):
+        self.curs.execute("select * from article order by created_at desc ")
+        all = self.curs.fetchall()
+        return [Article(*row) for row in all]
+
     @staticmethod
     def maybe_find_or_create(share_url=None):
         corry_id = get_corry_id(share_url)
@@ -71,6 +76,7 @@ class Article:
                 self.title = value
             if prop == 'article:published_time':
                 self.published_at = value
+
 
 
 
