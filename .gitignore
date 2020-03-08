@@ -1,0 +1,4 @@
+thcrrspndnt/settings.py
+venv/
+thcrrspndnt/model/data/db.sqlite3
+/.idea/
