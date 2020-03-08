@@ -22,7 +22,7 @@ class Unshorten:
             return False
         if self.longurl:
             return False
-        self.curs.execute("insert into unshorten (shorturl, lonurl) values (?, ?)", (self.shorturl, longurl,))
+        self.curs.execute("insert into unshorten (shorturl, longurl) values (?, ?)", (self.shorturl, longurl,))
         self.conn.commit()
         self.longurl = url
 
