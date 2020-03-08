@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from datetime import datetime
 from .db import Db
+from tweeter import Tweeter
 
 
 class Article:
@@ -34,6 +35,7 @@ class Article:
                           "values (?, ?, ?, ?, ?, ?)", (self.corry_id, self.share_url, self.title,
                                                         self.author, self.created_at, self.published_at,))
         self.db.conn.commit()
+        Tweeter().send_tweet(self)
 
     @property
     def tweetcount(self):
@@ -41,9 +43,9 @@ class Article:
         return self.curs.fetchone()[0]
 
     def get_paged(self):
-        self.curs.execute("select * from article order by created_at desc ")
-        all = self.curs.fetchall()
-        return [Article(*row) for row in all]
+        self.curs.execute("select * from article order by published_at desc ")
+        paged_rows = self.curs.fetchall()
+        return [Article(*row) for row in paged_rows]
 
     @staticmethod
     def maybe_find_or_create(share_url=None):
@@ -52,6 +54,7 @@ class Article:
             return False
         cached = Article().get(corry_id=corry_id)
         if cached:
+            Tweeter().send_tweet(cached)
             return cached
         return Article().cache_article(share_url=share_url, corry_id=corry_id)
 

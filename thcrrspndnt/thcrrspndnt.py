@@ -7,9 +7,8 @@ from model.article import Article
 #logging.basicConfig(level=('DEBUG' if config.DEBUG else config.LOG_LEVEL))
 
 def home():
-    all = Article().get_paged()
-    print(all)
-    payload = render_template('home.html', articles=all)
+    articles = Article().get_paged()
+    payload = render_template('home.html', articles=articles)
     return payload
 
 

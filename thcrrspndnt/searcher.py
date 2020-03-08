@@ -26,6 +26,7 @@ class Searcher:
                 a = Article.maybe_find_or_create(parsed_tweet.corres_url)
                 if a:
                     print("%s count: %s - %s" % (a.corry_id, a.tweetcount, a.title))
+                    break
 
 
 
