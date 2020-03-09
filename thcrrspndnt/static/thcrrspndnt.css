@@ -36,6 +36,7 @@ tr.odd:hover {
 
 td {
   padding: .75em;
+  vertical-align: top;
 }
 
 tr.odd {
@@ -58,4 +59,10 @@ h1 {
 
 h1 a {
   color: #df5b57;
+}
+
+.kicker {
+  font-size: smaller;
+  display: inline-block;
+  max-width: 600px;
 }

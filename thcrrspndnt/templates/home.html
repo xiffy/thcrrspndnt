@@ -6,7 +6,7 @@
     <tr {% if loop.index % 2 == 1 %} class="odd" {% endif %}>
         <td>{{ article.corry_id }}</td>
         <td>{{ article.nice_publish_date }}</td>
-        <td><a href="{{ article.share_url }}">{{ article.title }}</a> </td>
+        <td><a href="{{ article.share_url }}">{{ article.title }}</a> <br> <span class="kicker"> {{article.description}} </span></td>
         <td><a href="./author/{{article.author}}">{{ article.author }}</a></td>
         <td>{{ article.tweetcount }}</td>
     </tr>

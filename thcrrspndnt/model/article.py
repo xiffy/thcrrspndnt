@@ -18,7 +18,7 @@ class Article:
         self.author = author
         self.created_at = created_at
         self.published_at = published_at
-        self.description = description
+        self.description = description if description else ''
         self.db = Db()
         self.curs = self.db.conn.cursor()
 
@@ -35,9 +35,9 @@ class Article:
         self.created_at = str(datetime.utcnow())
         self.curs.execute("insert into article (corry_id, share_url, title, author, created_at, "
                           "published_at, description)"
-                          "values (?, ?, ?, ?, ?, ?)", (self.corry_id, self.share_url, self.title,
-                                                        self.author, self.created_at, self.published_at,
-                                                        self.description))
+                          "values (?, ?, ?, ?, ?, ?, ?)", (self.corry_id, self.share_url, self.title,
+                                                           self.author, self.created_at, self.published_at,
+                                                           self.description))
         self.db.conn.commit()
 
     @property

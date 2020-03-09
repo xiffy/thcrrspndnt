@@ -1,6 +1,6 @@
 import logging
 import jinja2
-from flask import Flask,request, render_template, session, redirect
+from flask import Flask, Response, request, render_template, session, redirect
 from model.article import Article
 
 # setup basic config for the given log level
@@ -19,7 +19,7 @@ def author(name):
 def rss():
     articles = Article().get_paged()
     payload = render_template('rss.xml', articles=articles)
-    return payload
+    return Response(payload, mimetype='text/xml')
 
 def create_thcrrspndnt():
     app = Flask('thcrrspndnt')
