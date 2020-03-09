@@ -10,3 +10,4 @@ CREATE TABLE tweet (id text, message text, urls text, corres_url text, corry_id 
 CREATE INDEX tweet_id on tweet (id);
 CREATE INDEX tweet_corres_url on tweet (corres_url);
 CREATE INDEX tweet_corry_id on tweet (corry_id);
+ALTER TABLE article ADD description text;

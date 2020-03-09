@@ -16,11 +16,16 @@ def author(name):
     payload = render_template('author.html', articles=articles, static_depth='..', author=name)
     return payload
 
+def rss():
+    articles = Article().get_paged()
+    payload = render_template('rss.xml', articles=articles)
+    return payload
 
 def create_thcrrspndnt():
     app = Flask('thcrrspndnt')
     app.add_url_rule('/', view_func=home)
     app.add_url_rule('/author/<name>', view_func=author)
+    app.add_url_rule('/rss', view_func=rss)
     return app
 
 app = create_thcrrspndnt()

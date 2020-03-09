@@ -10,13 +10,15 @@ from tweeter import Tweeter
 
 class Article:
 
-    def __init__(self, corry_id=None, share_url=None, title=None, author=None, created_at=None, published_at=None):
+    def __init__(self, corry_id=None, share_url=None, title=None, author=None,
+                 created_at=None, published_at=None, description=None):
         self.corry_id = corry_id
         self.share_url = share_url
         self.title = title
         self.author = author
         self.created_at = created_at
         self.published_at = published_at
+        self.description = description
         self.db = Db()
         self.curs = self.db.conn.cursor()
 
@@ -25,15 +27,17 @@ class Article:
         row = self.curs.fetchone()
         if row:
             self.corry_id, self.share_url, self.title, self.author, self.created_at,\
-                self.published_at = row
+                self.published_at, self.description = row
             return self
         return False
 
     def insert(self):
         self.created_at = str(datetime.utcnow())
-        self.curs.execute("insert into article (corry_id, share_url, title, author, created_at, published_at)"
+        self.curs.execute("insert into article (corry_id, share_url, title, author, created_at, "
+                          "published_at, description)"
                           "values (?, ?, ?, ?, ?, ?)", (self.corry_id, self.share_url, self.title,
-                                                        self.author, self.created_at, self.published_at,))
+                                                        self.author, self.created_at, self.published_at,
+                                                        self.description))
         self.db.conn.commit()
 
     @property
@@ -85,6 +89,8 @@ class Article:
             value = meta.attrs.get('content', None)
             if prop == 'og:title':
                 self.title = value
+            if prop == 'og:description':
+                self.description = value
             if prop == 'article:published_time':
                 self.published_at = value
 

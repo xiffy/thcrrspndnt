@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<channel>
+		<title>the Correspondent - shared articles. </title>
+		<link>http://molecule.nl/thcrrspndnt/</link>
+		<description></description>
+		<language>EN-us</language>
+		<pubDate></pubDate>
+		<lastBuildDate></lastBuildDate>
+		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
+		<generator>thcrrspndnt</generator>
+		<atom:link href="http://molecule.nl/thcrrspndnt/rss" rel="self" type="application/rss+xml" />
+        {% for article in articles %}
+		<item>
+			<title>{{article.title}}</title>
+			<link>{{article.share_url}}</link>
+			<description>{{article.description}}</description>
+			<dc:creator>{{article.author}}</dc:creator>
+			<guid>{{article.share_url}}</guid>
+			<category></category>
+			<pubDate>{{article.published_at}}</pubDate>
+		</item>
+        {% endfor %}
+    </channel>
+</rss>
