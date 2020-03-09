@@ -78,3 +78,19 @@ h1 a {
   object-fit: cover;
    width: 80px;
 }
+
+footer {
+  height: 50px;
+  background-color: black;
+  color: #df5b57;
+  text-align: center;
+  line-height: 45px;
+  margin-top: 20px;
+}
+
+.authorname,
+.authorname th{
+  background-color: black;
+  color: #df5b57;
+  font-weight: bolder;
+}
