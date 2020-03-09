@@ -23,9 +23,7 @@ class Searcher:
             parsed_tweet = Tweet.parse_json(tweet)
             if parsed_tweet:
                 # it's up to the article to decide what to do with the found URL
-                a = Article.maybe_find_or_create(parsed_tweet.corres_url)
-                if a:
-                    print("%s count: %s - %s" % (a.corry_id, a.tweetcount, a.title))
+                Article.maybe_find_or_create(parsed_tweet.corres_url)
 
 
 s = Searcher()
