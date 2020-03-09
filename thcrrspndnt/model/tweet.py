@@ -56,6 +56,7 @@ class Tweet:
         if corres_url:
             cached = Tweet().get(data.get('id'))
             if not cached:
+                print('.', sep='')
                 return Tweet(id=data.get('id'), message=data.get('text'),
                       urls=json.dumps(urls), corres_url=corres_url).insert()
             return cached
