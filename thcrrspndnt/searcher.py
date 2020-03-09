@@ -1,5 +1,6 @@
 from requests_oauthlib import OAuth1Session
 import settings
+import datetime
 from model.tweet import Tweet
 from model.article import Article
 
@@ -19,6 +20,7 @@ class Searcher:
                                              'count': 100,
                                              'result_type': 'recent'})
         tweets = result.json()
+        print("Harvesting %s" % datetime.datetime.now())
         for tweet in tweets['statuses']:
             parsed_tweet = Tweet.parse_json(tweet)
             if parsed_tweet:
