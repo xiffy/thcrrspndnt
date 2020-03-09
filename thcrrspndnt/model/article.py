@@ -43,10 +43,15 @@ class Article:
 
     @property
     def nice_publish_date(self):
-        return self.published_at[:19].replace('T', ' ')
+        return self.published_at[:10]
 
     def get_paged(self):
         self.curs.execute("select * from article order by published_at desc ")
+        paged_rows = self.curs.fetchall()
+        return [Article(*row) for row in paged_rows]
+
+    def get_author_paged(self, author):
+        self.curs.execute("select* from article where author = ? order by published_at desc", (author,))
         paged_rows = self.curs.fetchall()
         return [Article(*row) for row in paged_rows]
 

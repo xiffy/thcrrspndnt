@@ -11,10 +11,16 @@ def home():
     payload = render_template('home.html', articles=articles)
     return payload
 
+def author(name):
+    articles = Article().get_author_paged(name)
+    payload = render_template('author.html', articles=articles, static_depth='..')
+    return payload
+
 
 def create_thcrrspndnt():
     app = Flask('thcrrspndnt')
     app.add_url_rule('/', view_func=home)
+    app.add_url_rule('/author/<name>', view_func=author)
     return app
 
 app = create_thcrrspndnt()
