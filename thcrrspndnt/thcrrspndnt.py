@@ -13,7 +13,7 @@ def home():
 
 def author(name):
     articles = Article().get_author_paged(name)
-    payload = render_template('author.html', articles=articles, static_depth='..')
+    payload = render_template('author.html', articles=articles, static_depth='..', author=name)
     return payload
 
 

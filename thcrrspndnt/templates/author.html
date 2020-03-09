@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+
 <table>
+    <tr><th colspan="5">Articles by {{author}}</th> </tr>
     <tr><th>id</th><th>published @</th><th>title</th><th>author</th><th>tweets</th></tr>
 {% for article in articles %}
     <tr {% if loop.index % 2 == 1 %} class="odd" {% endif %}>
