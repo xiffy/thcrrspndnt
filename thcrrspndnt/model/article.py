@@ -41,6 +41,10 @@ class Article:
         self.curs.execute("select count(id) from tweet where corry_id = ?", (self.corry_id,))
         return self.curs.fetchone()[0]
 
+    @property
+    def nice_publish_date(self):
+        return self.published_at[:19].replace('T', ' ')
+
     def get_paged(self):
         self.curs.execute("select * from article order by published_at desc ")
         paged_rows = self.curs.fetchall()

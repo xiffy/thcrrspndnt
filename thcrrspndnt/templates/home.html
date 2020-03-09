@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <table>
+    <tr><th>id</th><th>published @</th><th>title</th><th>author</th><th>tweets</th></tr>
 {% for article in articles %}
     <tr {% if loop.index % 2 == 1 %} class="odd" {% endif %}>
         <td>{{ article.corry_id }}</td>
-        <td>{{ article.published_at }}</td>
+        <td>{{ article.nice_publish_date }}</td>
         <td><a href="{{ article.share_url }}">{{ article.title }}</a> </td>
         <td>{{ article.author }}</td>
         <td>{{ article.tweetcount }}</td>
