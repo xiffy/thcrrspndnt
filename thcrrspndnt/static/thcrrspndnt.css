@@ -39,7 +39,7 @@ td {
   vertical-align: top;
 }
 
-td a {
+td a, .meme {
   font-weight: 600;
 }
 
@@ -91,6 +91,8 @@ footer {
   line-height: 45px;
   margin-top: 20px;
 }
+
+.meme { color: #df5b57;}
 
 #rsslink {
   float: right;
