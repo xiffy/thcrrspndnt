@@ -20,7 +20,7 @@ class Searcher:
                                              'count': 100,
                                              'result_type': 'recent'})
         tweets = result.json()
-        print("Harvesting %s" % datetime.datetime.now())
+        print("\nHarvesting %s" % datetime.datetime.now(), end=' ')
         for tweet in tweets['statuses']:
             parsed_tweet = Tweet.parse_json(tweet)
             if parsed_tweet:

@@ -7,7 +7,7 @@ from model.article import Article
 #logging.basicConfig(level=('DEBUG' if config.DEBUG else config.LOG_LEVEL))
 
 def home():
-    articles = Article().get_paged()
+    articles = Article().get_paged(*pager_args())
     payload = render_template('home.html', articles=articles)
     return payload
 
@@ -20,6 +20,11 @@ def rss():
     articles = Article().get_paged()
     payload = render_template('rss.xml', articles=articles)
     return Response(payload, mimetype='text/xml')
+
+def pager_args():
+    start = request.args.get('start', 0)
+    amount = request.args.get('amount', 10)
+    return (start, amount)
 
 def create_thcrrspndnt():
     app = Flask('thcrrspndnt')

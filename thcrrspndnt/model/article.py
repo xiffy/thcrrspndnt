@@ -1,4 +1,3 @@
-import sqlite3
 import requests
 import re
 from bs4 import BeautifulSoup
@@ -49,8 +48,8 @@ class Article:
     def nice_publish_date(self):
         return self.published_at[:10]
 
-    def get_paged(self):
-        self.curs.execute("select * from article order by published_at desc ")
+    def get_paged(self, start=0, amount=10):
+        self.curs.execute("select * from article order by published_at desc limit ?,?", (start, amount,))
         paged_rows = self.curs.fetchall()
         return [Article(*row) for row in paged_rows]
 
@@ -94,8 +93,6 @@ class Article:
                 self.description = value
             if prop == 'article:published_time':
                 self.published_at = value
-
-
 
 
 def get_corry_id(url):

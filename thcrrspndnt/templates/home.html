@@ -1,4 +1,6 @@
+
 {% extends "base.html" %}
+
 {% block content %}
 <table>
     <tr><th>id</th><th>published @</th><th>title</th><th>author</th><th>tweets</th></tr>
@@ -12,4 +14,9 @@
     </tr>
 {% endfor %}
 </table>
-{% endblock %}}
+
+{% include 'blocks/pager.html' %}
+{% endblock %}
+
+
+

@@ -99,6 +99,10 @@ footer {
   width: 40px;
 }
 
+.pager {
+  margin: 0 auto;
+}
+
 .authorname,
 .authorname th{
   background-color: black;
