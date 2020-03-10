@@ -2,6 +2,7 @@ import logging
 import jinja2
 from flask import Flask, Response, request, render_template, session, redirect
 from model.article import Article
+from model.tweet import Tweet
 
 # setup basic config for the given log level
 #logging.basicConfig(level=('DEBUG' if config.DEBUG else config.LOG_LEVEL))
@@ -10,7 +11,9 @@ def home():
     start, amount = pager_args()
     articles = Article().get_paged(start=start, amount=amount)
     tot_count = Article().get_count_filtered()
-    payload = render_template('home.html', articles=articles, start=int(start), amount=int(amount), tot_count=tot_count)
+    tweet_count = Tweet().get_tweetcount_filtered()
+    payload = render_template('home.html', articles=articles, start=int(start), amount=int(amount),
+                              tot_count=tot_count, tweet_count=tweet_count)
     return payload
 
 def rss():
@@ -22,8 +25,9 @@ def author(name):
     start, amount = pager_args()
     articles = Article().get_author_paged(name, start=start, amount=amount)
     tot_count = Article().get_count_filtered(author=name)
+    tweet_count = Tweet().get_tweetcount_filtered(author=name)
     payload = render_template('author.html', articles=articles, static_depth='../..', author=name,
-                              start=int(start), amount=int(amount), tot_count=tot_count)
+                              start=int(start), amount=int(amount), tot_count=tot_count, tweet_count=tweet_count)
     return payload
 
 def rss_author(name):

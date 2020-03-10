@@ -35,6 +35,15 @@ class Tweet:
         self.db.conn.commit()
         return self
 
+    def get_tweetcount_filtered(self, author=None):
+        if not author:
+            self.curs.execute("select count(id) from tweet")
+        else:
+            self.curs.execute("select count(id) from article "
+                              "left join tweet on article.corry_id = tweet.corry_id "
+                              "where author = ?", (author,))
+        return self.curs.fetchone()[0]
+
     @staticmethod
     def parse_json(data):
         urls = data['entities'].get('urls', None)
