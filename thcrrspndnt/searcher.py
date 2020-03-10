@@ -21,11 +21,14 @@ class Searcher:
                                              'result_type': 'recent'})
         tweets = result.json()
         print("\nHarvesting %s" % datetime.datetime.now(), end=' ')
-        for tweet in tweets['statuses']:
-            parsed_tweet = Tweet.parse_json(tweet)
-            if parsed_tweet:
-                # it's up to the article to decide what to do with the found URL
-                Article.maybe_find_or_create(parsed_tweet.corres_url)
+        if 'statuses' in tweets:
+            for tweet in tweets['statuses']:
+                parsed_tweet = Tweet.parse_json(tweet)
+                if parsed_tweet:
+                    # it's up to the article to decide what to do with the found URL
+                    Article.maybe_find_or_create(parsed_tweet.corres_url)
+        else:
+            print('No tweets found?')
 
 
 s = Searcher()
