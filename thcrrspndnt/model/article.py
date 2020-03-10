@@ -77,7 +77,7 @@ class Article:
                 self.corry_id = corry_id
                 self.share_url = share_url
                 self.insert()
-                print("%s: New article: %s - %s" % (self.created_at, self.corry_id, self.title))
+                print("New article: %s - %s" % (self.corry_id, self.title))
                 Tweeter().send_tweet(self)
                 return self
 

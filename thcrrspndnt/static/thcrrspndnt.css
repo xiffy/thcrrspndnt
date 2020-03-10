@@ -39,6 +39,10 @@ td {
   vertical-align: top;
 }
 
+td a {
+  font-weight: 600;
+}
+
 tr.odd {
   background: #efefef;
 }
