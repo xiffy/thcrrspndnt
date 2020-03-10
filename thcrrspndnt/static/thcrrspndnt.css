@@ -88,6 +88,16 @@ footer {
   margin-top: 20px;
 }
 
+#rsslink {
+  float: right;
+  width: 40px;
+  padding-top: 5px;
+  padding-right: 5px;
+}
+#rsslink img {
+  width: 40px;
+}
+
 .authorname,
 .authorname th{
   background-color: black;
