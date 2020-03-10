@@ -59,6 +59,13 @@ class Article:
         paged_rows = self.curs.fetchall()
         return [Article(*row) for row in paged_rows]
 
+    def get_count_filtered(self, author=None):
+        if not author:
+            self.curs.execute("select count(corry_id) from article")
+        else:
+            self.curs.execute("select count(corry_id) from article where author = ?", (author,))
+        return self.curs.fetchone()[0]
+
     @staticmethod
     def maybe_find_or_create(share_url=None):
         corry_id = get_corry_id(share_url)

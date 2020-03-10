@@ -116,3 +116,12 @@ footer {
   color: #df5b57;
   font-weight: bolder;
 }
+
+.articlecount {
+  float: left;
+  margin-left: 50px;
+}
+
+.bye {
+  margin-left: -150px;
+}

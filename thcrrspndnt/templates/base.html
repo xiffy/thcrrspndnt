@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>the correspondent (english)</title>
-    <link rel="stylesheet" href="{{static_depth|default('.')}}/static/thcrrspndnt.css?v=7" />
+    <link rel="stylesheet" href="{{static_depth|default('.')}}/static/thcrrspndnt.css?v=0" />
     <link rel="alternate" type="application/rss+xml" title="Articles from the Correspondent - thcrrspndnt" href="./rss">
 </head>
 <body>
@@ -15,9 +15,9 @@
 <aside id="followtwitter">
     <a href="https://twitter.com/thcrsspndnt" ><img src="{{static_depth|default('.')}}/static/twitter.jpg" /></a>
 </aside>
-<footer>brought to you by <a href="https://twitter.com/xiffy" class="meme">@xiffy</a>
+<footer><span class="bye">brought to you by <a href="https://twitter.com/xiffy" class="meme">@xiffy</a></span>
     <a href="./rss" alt="RSS-Feed" title="Follow in a RSS Reader" id="rsslink">
-        <img src="{{static_depth|default('.')}}/static/rss.png" /></a>
+        <img src="{{static_depth|default('.')}}/static/rss.png" /></a><span class="articlecount">{{tot_count}} articles found so far</span>
 </footer>
 </body>
 </html>
