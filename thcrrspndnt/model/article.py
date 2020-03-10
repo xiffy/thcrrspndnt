@@ -53,8 +53,9 @@ class Article:
         paged_rows = self.curs.fetchall()
         return [Article(*row) for row in paged_rows]
 
-    def get_author_paged(self, author):
-        self.curs.execute("select* from article where author = ? order by published_at desc", (author,))
+    def get_author_paged(self, author, start=0, amount=10):
+        self.curs.execute("select* from article where author = ? order by published_at desc limit ?,?",
+                          (author, start, amount, ))
         paged_rows = self.curs.fetchall()
         return [Article(*row) for row in paged_rows]
 

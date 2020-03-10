@@ -7,13 +7,16 @@ from model.article import Article
 #logging.basicConfig(level=('DEBUG' if config.DEBUG else config.LOG_LEVEL))
 
 def home():
-    articles = Article().get_paged(*pager_args())
-    payload = render_template('home.html', articles=articles)
+    start, amount = pager_args()
+    articles = Article().get_paged(start=start, amount=amount)
+    payload = render_template('home.html', articles=articles, start=int(start), amount=int(amount))
     return payload
 
 def author(name):
-    articles = Article().get_author_paged(name)
-    payload = render_template('author.html', articles=articles, static_depth='..', author=name)
+    start, amount = pager_args()
+    articles = Article().get_author_paged(name, start=start, amount=amount)
+    payload = render_template('author.html', articles=articles, static_depth='..', author=name,
+                              start=int(start), amount=int(amount))
     return payload
 
 def rss():

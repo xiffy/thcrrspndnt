@@ -1,1 +1,9 @@
-<p class="pager">---- hi hi har</p>
+{% if start is defined and amount is defined %}
+  <p class="pager">
+      {% if start > 0 %}
+      <a href="?start={{[start - amount, 0]|max}}&amount={{amount}}">&laquo; Previous</a> |
+      {% endif %}
+      <a href="?start={{start + amount}}&amount={{amount}}">Next &raquo;</a>
+  </p>
+{% endif %}
+

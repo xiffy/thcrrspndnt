@@ -13,5 +13,8 @@
         <td>{{ article.tweetcount }}</td>
     </tr>
 {% endfor %}
+    <tr>
+        <th colspan="5">{% include 'blocks/pager.html' %}</th>
+    </tr>
 </table>
 {% endblock %}}
