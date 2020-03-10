@@ -122,6 +122,10 @@ footer {
   margin-left: 50px;
 }
 
+.inactive {
+  color: #888;
+}
+
 .bye {
   margin-left: -150px;
 }

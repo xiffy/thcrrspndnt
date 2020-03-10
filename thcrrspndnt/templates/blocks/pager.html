@@ -1,9 +1,17 @@
 {% if start is defined and amount is defined %}
   <p class="pager">
       {% if start > 0 %}
+      <a href="?amount={{amount}}">&laquo; First</a> |
       <a href="?start={{[start - amount, 0]|max}}&amount={{amount}}">&laquo; Previous</a> |
+      {% else %}
+      <span class="inactive">&laquo; First | &laquo; Previous | </span>
       {% endif %}
-      <a href="?start={{start + amount}}&amount={{amount}}">Next &raquo;</a>
+      {% if start + amount < tot_count %}
+      <a href="?start={{start + amount}}&amount={{amount}}">Next &raquo;</a> |
+      <a href="?start={{tot_count - amount}}&amount={{amount}}">Last &raquo;</a>
+      {% else %}
+      <span class="inactive"> Next &raquo; | Last &raquo;</span>
+      {% endif %}
   </p>
 {% endif %}
 
