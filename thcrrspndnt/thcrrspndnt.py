@@ -1,5 +1,6 @@
 import logging
 import jinja2
+import os
 from flask import Flask, Response, request, render_template, session, redirect
 from model.article import Article
 from model.tweet import Tweet
@@ -13,7 +14,8 @@ def home():
     tot_count = Article().get_count_filtered()
     tweet_count = Tweet().get_tweetcount_filtered()
     payload = render_template('home.html', articles=articles, start=int(start), amount=int(amount),
-                              tot_count=tot_count, tweet_count=tweet_count)
+                              tot_count=tot_count, tweet_count=tweet_count,
+                              cssver=os.path.getmtime('thcrrspndnt/static/thcrrspndnt.css')[:10])
     return payload
 
 def rss():
@@ -27,7 +29,8 @@ def author(name):
     tot_count = Article().get_count_filtered(author=name)
     tweet_count = Tweet().get_tweetcount_filtered(author=name)
     payload = render_template('author.html', articles=articles, static_depth='../..', author=name,
-                              start=int(start), amount=int(amount), tot_count=tot_count, tweet_count=tweet_count)
+                              start=int(start), amount=int(amount), tot_count=tot_count, tweet_count=tweet_count,
+                              cssver=os.path.getmtime('thcrrspndnt/static/thcrrspndnt.css'[:10]))
     return payload
 
 def rss_author(name):
