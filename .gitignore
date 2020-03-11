@@ -1,5 +1,5 @@
 thcrrspndnt/settings.py
 venv/
-thcrrspndnt/model/data/db.sqlite3
+thcrrspndnt/model/data/*.sqlite3
 /.idea/
 *__pycache__*
