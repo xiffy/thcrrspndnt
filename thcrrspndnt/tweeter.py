@@ -17,4 +17,4 @@ class Tweeter:
                                  data={'status': "%s: %s - %s" % (article.author, article.title, article.share_url),
                                        'source': 'molecule.nl/thcrrspndnt',
                                        'callback_url': 'molecule.nl/'})
-            print('Tweet sent for id: %s' % article.corry_id)
+            print('Tweet, tweet, tweet, tweet, yeah! sent for id: %s' % article.corry_id)
