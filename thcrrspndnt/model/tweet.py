@@ -1,5 +1,6 @@
 import sqlite3
 import json
+import settings
 import os
 from .db import Db
 from .unshorten import Unshorten
@@ -46,6 +47,7 @@ class Tweet:
 
     @staticmethod
     def parse_json(data):
+        site =settings.CONFIG.get('site', 'thecorrespondent.com')
         urls = data['entities'].get('urls', None)
         corres_url = None
         if not urls:
@@ -53,9 +55,9 @@ class Tweet:
         for url in urls:
             maybe_corry = url.get('expanded_url', None)
             if maybe_corry:
-                if not 'thecorrespondent.com' in maybe_corry:
+                if not site in maybe_corry:
                     maybe_corry = Unshorten.unshorten(maybe_corry)
-                    if 'thecorrespondent.com' in maybe_corry:
+                    if site in maybe_corry:
                         corres_url = maybe_corry
                         break
                 else:

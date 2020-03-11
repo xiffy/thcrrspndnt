@@ -80,7 +80,8 @@ h1 a {
 
 #followtwitter img {
   object-fit: cover;
-   width: 80px;
+  width: 80px;
+  border-radius: 40px;
 }
 
 footer {
