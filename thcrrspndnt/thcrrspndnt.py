@@ -1,4 +1,5 @@
 import os
+import re
 from flask import Flask, Response, request, render_template
 from model.article import Article
 from model.tweet import Tweet
@@ -44,6 +45,21 @@ def about():
     return Response(render_template('aboutNL.html', cssver=os.path.getmtime(os.path.join(os.path.dirname(__file__),
                                                                    'static/thcrrspndnt.css'))))
 
+def search():
+    query = request.args.get('query')
+    start, amount = pager_args()
+    tokens = re.findall('\w+|"[\w\s]*"', query)
+    articles = Article().get_search(tokens, start=start, amount=amount)
+    tot_count = Article().get_searchcount(tokens)
+    payload = render_template('search.html', articles=articles, start=int(start), amount=int(amount),
+                              version=settings.corres_version, tot_count=tot_count,
+                              tweet_count=0, tokens=tokens,
+                              cssver=os.path.getmtime(os.path.join(os.path.dirname(__file__),
+                                                                  'static/thcrrspndnt.css'))
+                             )
+    return payload
+
+
 def pager_args():
     start = request.args.get('start', 0)
     amount = request.args.get('amount', 20)
@@ -57,6 +73,7 @@ def create_thcrrspndnt():
     app.add_url_rule('/author/<name>/', view_func=author)
     app.add_url_rule('/author/<name>/rss', view_func=rss_author)
     app.add_url_rule('/about', view_func=about)
+    app.add_url_rule('/search', view_func=search)
     return app
 
 app = create_thcrrspndnt()

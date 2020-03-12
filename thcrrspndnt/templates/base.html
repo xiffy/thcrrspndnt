@@ -17,7 +17,9 @@
     {% if version == 'EN' %} Articles from the Correspondent
     {% else %} Artikelen van de Correspondent
     {% endif %}
-</a></h1>
+</a>
+    {% include 'blocks/search_input.html' %}
+</h1>
 
 {% block content %}
 {% endblock %}

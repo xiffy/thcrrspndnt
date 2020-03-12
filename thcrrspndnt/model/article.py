@@ -66,6 +66,29 @@ class Article:
             self.curs.execute("select count(corry_id) from article where author = ?", (author,))
         return self.curs.fetchone()[0]
 
+    def get_searchcount(self, tokens):
+        where, values = self.searchquerybuilder(tokens)
+        self.curs.execute('select count(*) from article where %s' % ' or '.join(where), values)
+        return self.curs.fetchone()[0]
+
+    def get_search(self, tokens=None, start=0, amount=10):
+        where, values = self.searchquerybuilder(tokens)
+        values.append(start)
+        values.append(amount)
+        self.curs.execute('select * from article where %s limit ?,?' % ' or '.join(where), values)
+        paged_rows = self.curs.fetchall()
+        return [Article(*row) for row in paged_rows]
+
+    def searchquerybuilder(self, tokens):
+        fields = ['title', 'description', 'author']
+        where = []
+        values = []
+        for field in fields:
+            for token in tokens:
+                where.append('{0} like ?'.format(field))
+                values.append('%{0}%'.format(token.replace('"', '')))
+        return (where, values)
+
     @staticmethod
     def maybe_find_or_create(share_url=None):
         corry_id = get_corry_id(share_url)

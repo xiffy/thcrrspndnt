@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+<table>
+    {% if tokens %}
+        <tr class="querystring"><th colspan="5">je zocht naar: {{tokens|join(', ')}} <br/>
+            ik vond {{tot_count}} artikelen
+        </th> </tr>
+    {% endif %}
+    <tr><th>id</th><th>published @</th><th>title</th><th>author</th><th>tweets</th></tr>
+    {% include 'blocks/article_table_body.html' %}
+    <tr>
+        <th colspan="5">{% include 'blocks/pager.html' %}</th>
+    </tr>
+</table>
+{% endblock %}}
