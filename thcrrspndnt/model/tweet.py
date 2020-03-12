@@ -1,10 +1,9 @@
-import sqlite3
 import json
 import settings
-import os
 from .db import Db
 from .unshorten import Unshorten
 from .article import get_corry_id
+from .article import Article
 
 
 class Tweet:
@@ -43,6 +42,13 @@ class Tweet:
             self.curs.execute("select count(id) from article "
                               "left join tweet on article.corry_id = tweet.corry_id "
                               "where author = ?", (author,))
+        return self.curs.fetchone()[0]
+
+    def get_tweetcount_searchquery(self, tokens):
+        where, values = Article().searchquerybuilder(tokens)
+        self.curs.execute('select count(id) from article '
+                          'left join tweet on article.corry_id = tweet.corry_id '
+                          'where %s ' % ' or '.join(where), values)
         return self.curs.fetchone()[0]
 
     @staticmethod

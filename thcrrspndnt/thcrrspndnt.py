@@ -21,7 +21,7 @@ def home():
 
 def rss():
     articles = Article().get_paged(start=0, amount=100)
-    payload = render_template('rss.xml', articles=articles)
+    payload = render_template('rss.xml', articles=articles, version=settings.corres_version)
     return Response(payload, mimetype='text/xml')
 
 def author(name):
@@ -33,27 +33,31 @@ def author(name):
                               start=int(start), amount=int(amount), tot_count=tot_count, tweet_count=tweet_count,
                               cssver=os.path.getmtime(os.path.join(os.path.dirname(__file__),
                                                                    'static/thcrrspndnt.css')),
-                              site=settings.CONFIG.get('site', 'thecorrespondent.com'))
+                              site=settings.CONFIG.get('site', 'thecorrespondent.com'),
+                              version=settings.corres_version)
     return payload
 
 def rss_author(name):
     articles = Article().get_author_paged(name, start=0, amount=100)
-    payload = render_template('rss.xml', articles=articles)
+    payload = render_template('rss.xml', articles=articles, version=settings.corres_version)
     return Response(payload, mimetype='text/xml')
 
 def about():
-    return Response(render_template('aboutNL.html', cssver=os.path.getmtime(os.path.join(os.path.dirname(__file__),
+    return Response(render_template('aboutNL.html', version=settings.corres_version,
+                                    cssver=os.path.getmtime(os.path.join(os.path.dirname(__file__),
                                                                    'static/thcrrspndnt.css'))))
 
 def search():
     query = request.args.get('query')
     start, amount = pager_args()
+    # split the query on whitespace, but keep quoted strings together
     tokens = re.findall('\w+|"[\w\s]*"', query)
     articles = Article().get_search(tokens, start=start, amount=amount)
     tot_count = Article().get_searchcount(tokens)
+    tweet_count = Tweet().get_tweetcount_searchquery(tokens)
     payload = render_template('search.html', articles=articles, start=int(start), amount=int(amount),
                               version=settings.corres_version, tot_count=tot_count,
-                              tweet_count=0, tokens=tokens,
+                              tweet_count=tweet_count, tokens=tokens,
                               cssver=os.path.getmtime(os.path.join(os.path.dirname(__file__),
                                                                   'static/thcrrspndnt.css'))
                              )

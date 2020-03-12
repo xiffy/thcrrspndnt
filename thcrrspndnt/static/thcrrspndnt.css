@@ -37,6 +37,7 @@ tr.odd:hover {
 td {
   padding: .75em;
   vertical-align: top;
+  max-width: 720px;
 }
 
 td a, .meme {
