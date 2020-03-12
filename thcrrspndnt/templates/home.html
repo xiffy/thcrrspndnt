@@ -3,16 +3,13 @@
 
 {% block content %}
 <table>
-    <tr><th>id</th><th>published @</th><th>title</th><th>author</th><th>tweets</th></tr>
-{% for article in articles %}
-    <tr {% if loop.index % 2 == 1 %} class="odd" {% endif %}>
-        <td>{{ article.corry_id }}</td>
-        <td>{{ article.nice_publish_date }}</td>
-        <td><a href="{{ article.share_url }}">{{ article.title }}</a> <br> <span class="kicker"> {{article.description}} </span></td>
-        <td><a href="./author/{{article.author}}/">{{ article.author }}</a></td>
-        <td>{{ article.tweetcount }}</td>
-    </tr>
-{% endfor %}
+    {% if version == 'EN' %}
+        {% include 'blocks/table_head_EN.html' %}
+    {% else %}
+        {% include 'blocks/table_head_NL.html' %}
+    {% endif %}
+
+    {% include 'blocks/article_table_body.html' %}
     <tr>
         <th colspan="5">{% include 'blocks/pager.html' %}</th>
     </tr>

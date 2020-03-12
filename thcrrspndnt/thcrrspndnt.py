@@ -14,7 +14,8 @@ def home():
                               tot_count=tot_count, tweet_count=tweet_count,
                               cssver=os.path.getmtime(os.path.join(os.path.dirname(__file__),
                                                                    'static/thcrrspndnt.css')),
-                              site=settings.CONFIG.get('site', 'thecorrespondent.com'))
+                              site=settings.CONFIG.get('site', 'thecorrespondent.com'),
+                              version=settings.corres_version,)
     return payload
 
 def rss():

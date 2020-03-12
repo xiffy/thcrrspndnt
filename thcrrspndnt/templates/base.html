@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{version}}">
 <head>
     <meta charset="UTF-8">
-    <title>the correspondent (english)</title>
+    {% if version == 'EN' %}}
+      <title>the correspondent (english)</title>
+       <link rel="alternate" type="application/rss+xml" title="Articles from the Correspondent - thcrrspndnt" href="./rss">
+   {% else %}
+      <title>artikelen van de correspondent </title>
+      <link rel="alternate" type="application/rss+xml" title="Artikelen van de  Correspondent - dcrrspndnt" href="./rss">
+    {% endif %}
     <link rel="stylesheet" href="{{static_depth|default('.')}}/static/thcrrspndnt.css?v={{cssver|default('vergeten')}}" />
-    <link rel="alternate" type="application/rss+xml" title="Articles from the Correspondent - thcrrspndnt" href="./rss">
 </head>
 <body>
 <h1>Articles from <a href="https://{{site}}/">the Correspondent</a></h1>
@@ -13,7 +18,11 @@
 {% endblock %}
 
 <aside id="followtwitter">
+    {% if version == 'EN' %}
     <a href="https://twitter.com/thcrsspndnt" ><img src="{{static_depth|default('.')}}/static/twitter.jpg" /></a>
+    {% else %}
+    <a href="https://twitter.com/dcrrspndnt" ><img src="{{static_depth|default('.')}}/static/twitter.jpg" /></a>
+    {% endif %}}
 </aside>
 <footer><span class="bye">brought to you by <a href="https://twitter.com/xiffy" class="meme">@xiffy</a></span>
     <a href="./rss" alt="RSS-Feed" title="Follow in a RSS Reader" id="rsslink">
