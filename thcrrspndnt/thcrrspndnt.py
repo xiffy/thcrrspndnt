@@ -49,6 +49,7 @@ def create_thcrrspndnt():
     app = Flask('thcrrspndnt')
     app.add_url_rule('/', view_func=home)
     app.add_url_rule('/rss', view_func=rss)
+    app.add_url_rule('/rss.php', view_func=rss)
     app.add_url_rule('/author/<name>/', view_func=author)
     app.add_url_rule('/author/<name>/rss', view_func=rss_author)
     return app

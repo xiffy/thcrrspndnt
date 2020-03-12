@@ -3,3 +3,4 @@ venv/
 thcrrspndnt/model/data/*.sqlite3
 /.idea/
 *__pycache__*
+nohup*out
