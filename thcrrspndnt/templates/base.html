@@ -13,11 +13,11 @@
 </head>
 <body>
 
-{% if version == 'EN' %}
-<h1>Articles from <a href="https://thecorrespondent.com/">the Correspondent</a></h1>
-{% else %}
-<h1>Artikelen van <a href="https://decorrespondent.nl/">de Correspondent</a></h1>
-{% endif %}
+<h1><a href="{{static_depth|default('.')}}">
+    {% if version == 'EN' %} Articles from the Correspondent
+    {% else %} Artikelen van de Correspondent
+    {% endif %}
+</a></h1>
 
 {% block content %}
 {% endblock %}

@@ -61,7 +61,8 @@ h1 {
   font-size: 24px;
 }
 
-h1 a {
+h1 a,
+.article h1 a {
   color: #df5b57;
 }
 
