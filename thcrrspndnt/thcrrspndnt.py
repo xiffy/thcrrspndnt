@@ -41,7 +41,8 @@ def rss_author(name):
     return Response(payload, mimetype='text/xml')
 
 def about():
-    return Response(render_template('aboutNL.html', static_depth='../..'))
+    return Response(render_template('aboutNL.html', cssver=os.path.getmtime(os.path.join(os.path.dirname(__file__),
+                                                                   'static/thcrrspndnt.css'))))
 
 def pager_args():
     start = request.args.get('start', 0)
