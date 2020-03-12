@@ -2,7 +2,7 @@
 <html lang="{{version}}">
 <head>
     <meta charset="UTF-8">
-    {% if version == 'EN' %}}
+    {% if version == 'EN' %}
       <title>the correspondent (english)</title>
        <link rel="alternate" type="application/rss+xml" title="Articles from the Correspondent - thcrrspndnt" href="./rss">
    {% else %}
@@ -13,7 +13,7 @@
 </head>
 <body>
 
-{% if version == 'EN' %}}
+{% if version == 'EN' %}
 <h1>Articles from <a href="https://thecorrespondent.com/">the Correspondent</a></h1>
 {% else %}
 <h1>Artikelen van <a href="https://decorrespondent.com/">de Correspondent</a></h1>
@@ -27,7 +27,7 @@
     <a href="https://twitter.com/thcrsspndnt" ><img src="{{static_depth|default('.')}}/static/twitter.jpg" /></a>
     {% else %}
     <a href="https://twitter.com/dcrrspndnt" ><img src="{{static_depth|default('.')}}/static/twitter.jpg" /></a>
-    {% endif %}}
+    {% endif %}
 </aside>
 <footer><span class="bye">brought to you by <a href="https://twitter.com/xiffy" class="meme">@xiffy</a></span>
     <a href="./rss" alt="RSS-Feed" title="Follow in a RSS Reader" id="rsslink">
