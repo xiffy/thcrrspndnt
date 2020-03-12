@@ -12,7 +12,12 @@
     <link rel="stylesheet" href="{{static_depth|default('.')}}/static/thcrrspndnt.css?v={{cssver|default('vergeten')}}" />
 </head>
 <body>
-<h1>Articles from <a href="https://{{site}}/">the Correspondent</a></h1>
+
+{% if version == 'EN' %}}
+<h1>Articles from <a href="https://thecorrespondent.com/">the Correspondent</a></h1>
+{% else %}
+<h1>Artikelen van <a href="https://decorrespondent.com/">de Correspondent</a></h1>
+{% endif %}
 
 {% block content %}
 {% endblock %}
