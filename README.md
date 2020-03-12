@@ -4,6 +4,7 @@ If a valid URL is found in the tweet, the tweet get's stored.
 The URL is fetched (once) and vital information is collected with Beautiful Soup and stored in the database. If this is the first time the URL is seen, a tweet is (optionally) sent. 
 
 This service is specifically designed for the Correspondent.nl/.com a Dutch / English site. 
+You can see it in action here: https://molecule.nl/dcrrspndnt (dutch) and https://molecule.nl/thcrrspndnt theyare accompanied by [@dcrrspndnt](https://twitter.com/dcrrspndnt) and [@thcrsspndnton](https://twitter.com/thcrsspndnt) twitter respectively. 
 
 #### I wants it
 ```git clone git@github.com:xiffy/thcrrspndnt.git
