@@ -136,6 +136,7 @@ footer {
   margin: -10px auto;
   padding: 10px;
   background-color: white;
+  line-height: 24px;
 }
 .article a {
   color: darkslateblue;
