@@ -1,4 +1,4 @@
-# thcrrspndnt 
+# :see_no_evil: :hear_no_evil: :speak_no_evil: thcrrspndnt 
 thcrrspndnt is first of all a twitter-bot. It searches for a configurable `query` the twitter-api on behalf of your twitter account. (Did I mention you must have a twitter account and register an app to get this baby qorking?). Each found tweet is then parsed for the presence of a share url and unshortens any in between url shortners. 
 If a valid URL is found in the tweet, the tweet get's stored. 
 The URL is fetched (once) and vital information is collected with Beautiful Soup and stored in the database. If this is the first time the URL is seen, a tweet is (optionally) sent. 
