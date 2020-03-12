@@ -130,3 +130,13 @@ footer {
 .bye {
   margin-left: -175px;
 }
+
+.article {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+footer svg {
+  font-size: 36px;
+}

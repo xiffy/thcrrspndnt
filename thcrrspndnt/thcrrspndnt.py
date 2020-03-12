@@ -40,6 +40,9 @@ def rss_author(name):
     payload = render_template('rss.xml', articles=articles)
     return Response(payload, mimetype='text/xml')
 
+def about():
+    return Response(render_template(('aboutNL.html')))
+
 def pager_args():
     start = request.args.get('start', 0)
     amount = request.args.get('amount', 20)
@@ -52,6 +55,7 @@ def create_thcrrspndnt():
     app.add_url_rule('/rss.php', view_func=rss)
     app.add_url_rule('/author/<name>/', view_func=author)
     app.add_url_rule('/author/<name>/rss', view_func=rss_author)
+    app.add_url_rule('/about', view_func=about)
     return app
 
 app = create_thcrrspndnt()
