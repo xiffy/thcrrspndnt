@@ -8,7 +8,7 @@
     </tr>
 {% endfor %}
     <tr>
-        <th colspan="5"><span class="articlecount">{{tot_count}} articles found so far ({{tweet_count}} tweets)</span></th>
+        <th colspan="5"><span class="articlecount">{{tot_count}} articles found so far ( {{'{:,}'.format(tweet_count)}} tweets)</span></th>
     </tr>
     <tr>
         <th colspan="5">{% include 'blocks/pager.html' %}</th>
