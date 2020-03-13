@@ -11,7 +11,7 @@ class Tweet:
     def __init__(self, id=None, message=None, urls=None, corres_url=None, corry_id=None):
         self.id = id
         self.message = message
-        self.urls = json.dump(urls) if urls else json.dumps({})
+        self.urls = json.dumps(urls) if urls else json.dumps({})
         self.corres_url = corres_url
         self.corry_id = corry_id
         self.db = Db()
