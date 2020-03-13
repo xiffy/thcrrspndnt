@@ -77,6 +77,29 @@ h1 form input {
   margin: 0 20px 0 0;
   height: 35px;
 }
+.search_input {
+  display: inline-block;
+  margin-left: 20px;
+  padding: 5px 15px 10px 35px;
+  border: 1px solid darkslategray;
+  border-radius: 30px;
+}
+#query {
+  border: 1px solid silver;
+  color: #df5b57;
+  padding: 0 15px;
+  border-radius: 20px;}
+
+.header__button {
+  background-color: #df5b57;
+  color: #000000;
+  border-right: 1px solid silver;
+  border-bottom: 1px solid silver;
+  border-top: none;
+  border-left: none;
+  border-radius: 20px;
+  padding: 5px 20px;}
+
 .kicker {
   font-size: smaller;
   display: inline-block;

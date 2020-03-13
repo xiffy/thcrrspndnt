@@ -49,6 +49,8 @@ def about():
 
 def search():
     query = request.args.get('query')
+    if not query:
+        return home()
     start, amount = pager_args()
     # split the query on whitespace, but keep quoted strings together
     tokens = re.findall('\w+|"[\w\s]*"', query)
