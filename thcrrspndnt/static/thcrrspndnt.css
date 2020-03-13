@@ -156,8 +156,8 @@ footer {
 }
 
 .articlecount {
-  float: left;
-  margin-left: 50px;
+  float: right;
+  margin-right: 50px;
 }
 
 .inactive {
