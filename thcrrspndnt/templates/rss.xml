@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
 	<channel>
-		<title>the Correspondent - shared articles. </title>
-		<link>http://molecule.nl/thcrrspndnt/</link>
+		{% if version == 'EN' %}
+   		<title>the Correspondent - shared articles.
+			{% if author is defined %}
+			by {{author}}
+			{% endif %}
+		</title>
+		<link>https://molecule.nl/thcrrspndnt/</link>
 		<description></description>
 		<language>EN-us</language>
+		{% else %}
+   		<title>de Correspondent - gedeelde artikelen.
+			{% if author is defined %}
+			by {{author}}
+			{% endif %}
+		</title>
+		<link>https://molecule.nl/decorrespondent/</link>
+		<description></description>
+		<language>EN-us</language>
+        {% endif %}
 		<pubDate></pubDate>
 		<lastBuildDate></lastBuildDate>
 		<docs>http://blogs.law.harvard.edu/tech/rss</docs>

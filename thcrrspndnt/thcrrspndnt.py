@@ -39,7 +39,7 @@ def author(name):
 
 def rss_author(name):
     articles = Article().get_author_paged(name, start=0, amount=100)
-    payload = render_template('rss.xml', articles=articles, version=settings.corres_version)
+    payload = render_template('rss.xml', articles=articles, version=settings.corres_version, author=name)
     return Response(payload, mimetype='text/xml')
 
 def about():
