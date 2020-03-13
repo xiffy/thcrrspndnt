@@ -79,14 +79,16 @@ h1 form input {
 }
 .search_input {
   display: inline-block;
+  margin-top: 5px;
   margin-left: 20px;
   padding: 5px 15px 10px 35px;
-  border: 1px solid darkslategray;
+  border: 1px solid #444444;
   border-radius: 30px;
+  background-color:  #444444;
 }
 #query {
   border: 1px solid silver;
-  color: #df5b57;
+  color: #444444;
   padding: 0 15px;
   border-radius: 20px;}
 
@@ -109,14 +111,14 @@ h1 form input {
 #followtwitter {
   position: absolute;
   top: 10px;
-  right: 0;
-  width: 100px;
+  right: 25px;
+  width: 46px;
 }
 
 #followtwitter img {
   object-fit: cover;
-  width: 80px;
-  border-radius: 40px;
+  width: 46px;
+  border-radius: 15px;
 }
 
 footer {
@@ -135,7 +137,7 @@ footer {
   width: 30px;
   height: 35px;
   padding-top: 5px;
-  padding-right: 5px;
+  padding-right: 75px;
 }
 #rsslink img {
   width: 30px;
