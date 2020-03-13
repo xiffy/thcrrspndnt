@@ -1,12 +1,13 @@
 from thcrrspndnt.model.article import Article
+from thcrrspndnt.model.tweet import Tweet
 import settings
 import csv
 
 # make sure we use the right database
 settings.CONFIG['db'] = {'path': 'data/db.NL.sqlite3',}
 
-with open('/tmp/artdump.txt') as records:
-    csv_reader = csv.reader(records, delimiter=',')
+with open('/c/Users/averschoor/pythonprojects/thcrrspndnt/tweetdump.data') as records:
+    csv_reader = csv.reader(records, delimiter='\t')
     for row in csv_reader:
         corry_id = row[0]
         share_url = row[1]
