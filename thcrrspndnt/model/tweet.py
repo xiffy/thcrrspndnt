@@ -75,7 +75,7 @@ class Tweet:
             if not cached:
                 print('.', end='')
                 return Tweet(id=data.get('id'), message=data.get('text'),
-                      urls=json.dumps(urls), corres_url=corres_url).insert()
+                      urls=urls, corres_url=corres_url).insert()
             return cached
         else:
             return False
