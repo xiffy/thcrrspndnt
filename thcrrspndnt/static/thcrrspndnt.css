@@ -159,6 +159,9 @@ footer {
   float: right;
   margin-right: 50px;
 }
+.articlecount .smaller {
+  font-size: smaller;
+}
 
 .inactive {
   color: #888;
@@ -178,6 +181,14 @@ footer {
 .article a {
   color: darkslateblue;
   border-bottom: 1px dotted red;
+}
+footer .about {
+  float: right;
+  margin-right: 10px;
+}
+.about a,
+.about a:visited{
+  color: #df5b57;
 }
 
 footer svg {
