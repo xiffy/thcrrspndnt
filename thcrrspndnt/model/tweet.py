@@ -25,6 +25,7 @@ class Tweet:
         row = self.curs.fetchone()
         if row:
             self.id, self.message, self.urls, self.corres_url, self.corry_id = row
+            self.urls = json.loads(self.urls)
             return self
         else:
             return False
