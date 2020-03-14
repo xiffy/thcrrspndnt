@@ -108,18 +108,6 @@ h1 form input {
   max-width: 600px;
 }
 
-#followtwitter {
-  position: absolute;
-  top: 10px;
-  right: 25px;
-  width: 46px;
-}
-
-#followtwitter img {
-  object-fit: cover;
-  width: 46px;
-  border-radius: 15px;
-}
 
 footer {
   height: 50px;
@@ -132,16 +120,44 @@ footer {
 
 .meme { color: #df5b57;}
 
+#buttons {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+}
+
+.followtwitter,
+.switch,
+.rss {
+  width: 46px;
+  display: inline-block;
+}
+
+.switch {
+  width: 65px;
+}
+
+.followtwitter img {
+  object-fit: cover;
+  width: 46px;
+  border-radius: 15px;
+}
+
 #rsslink {
-  float: right;
   width: 30px;
   height: 35px;
   padding-top: 5px;
-  padding-right: 75px;
 }
+
 #rsslink img {
   width: 30px;
 }
+
+.flag {
+  border-radius: 15px;
+  height: 30px;
+}
+
 
 .pager {
   margin: 0 auto;
