@@ -19,10 +19,12 @@ def home():
                               version=settings.corres_version,)
     return payload
 
+
 def rss():
     articles = Article().get_paged(start=0, amount=100)
     payload = render_template('rss.xml', articles=articles, version=settings.corres_version)
     return Response(payload, mimetype='text/xml')
+
 
 def author(name):
     start, amount = pager_args()
@@ -37,15 +39,18 @@ def author(name):
                               version=settings.corres_version)
     return payload
 
+
 def rss_author(name):
     articles = Article().get_author_paged(name, start=0, amount=100)
     payload = render_template('rss.xml', articles=articles, version=settings.corres_version, author=name)
     return Response(payload, mimetype='text/xml')
 
+
 def about():
     return Response(render_template('aboutNL.html', version=settings.corres_version,
                                     cssver=os.path.getmtime(os.path.join(os.path.dirname(__file__),
-                                                                   'static/thcrrspndnt.css'))))
+                                                                         'static/thcrrspndnt.css'))))
+
 
 def search():
     query = request.args.get('query')
@@ -61,15 +66,16 @@ def search():
                               version=settings.corres_version, tot_count=tot_count,
                               tweet_count=tweet_count, tokens=tokens,
                               cssver=os.path.getmtime(os.path.join(os.path.dirname(__file__),
-                                                                  'static/thcrrspndnt.css'))
-                             )
+                                                                   'static/thcrrspndnt.css'))
+                              )
     return payload
 
 
 def pager_args():
     start = request.args.get('start', 0)
     amount = request.args.get('amount', 20)
-    return (start, amount)
+    return start, amount
+
 
 def create_thcrrspndnt():
     app = Flask('thcrrspndnt')
@@ -81,5 +87,6 @@ def create_thcrrspndnt():
     app.add_url_rule('/about', view_func=about)
     app.add_url_rule('/search', view_func=search)
     return app
+
 
 app = create_thcrrspndnt()

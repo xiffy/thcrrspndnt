@@ -2,8 +2,7 @@ import json
 import settings
 from .db import Db
 from .unshorten import Unshorten
-from .article import get_corry_id
-from .article import Article
+from .article import get_corry_id, searchquerybuilder
 
 
 class Tweet:
@@ -46,7 +45,7 @@ class Tweet:
         return self.curs.fetchone()[0]
 
     def get_tweetcount_searchquery(self, tokens):
-        where, values = Article().searchquerybuilder(tokens)
+        where, values = searchquerybuilder(tokens)
         self.curs.execute('select count(id) from article '
                           'left join tweet on article.corry_id = tweet.corry_id '
                           'where %s ' % ' or '.join(where), values)
@@ -54,7 +53,7 @@ class Tweet:
 
     @staticmethod
     def parse_json(data):
-        site =settings.CONFIG.get('site', 'thecorrespondent.com')
+        site = settings.CONFIG.get('site', 'thecorrespondent.com')
         urls = data['entities'].get('urls', None)
         corres_url = None
         if not urls:
@@ -62,7 +61,7 @@ class Tweet:
         for url in urls:
             maybe_corry = url.get('expanded_url', None)
             if maybe_corry:
-                if not site in maybe_corry:
+                if site not in maybe_corry:
                     maybe_corry = Unshorten.unshorten(maybe_corry)
                     if site in maybe_corry:
                         corres_url = maybe_corry
@@ -76,7 +75,7 @@ class Tweet:
             if not cached:
                 print('.', end='')
                 return Tweet(id=data.get('id'), message=data.get('text'),
-                      urls=urls, corres_url=corres_url).insert()
+                             urls=urls, corres_url=corres_url).insert()
             return cached
         else:
             return False

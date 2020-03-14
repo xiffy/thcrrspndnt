@@ -5,14 +5,16 @@ import csv
 import decimal
 
 # make sure we use the right database
-settings.CONFIG['db'] = {'path': 'data/db.NL.sqlite3',}
+settings.CONFIG['db'] = {'path': 'data/db.NL.sqlite3', }
 ctx = decimal.Context()
 # 20 digits should be enough for everyone :D
 ctx.prec = 20
 
+
 def float_to_str(f):
     d1 = ctx.create_decimal(repr(f))
     return format(d1, 'f')
+
 
 with open('/c/Users/averschoor/pythonprojects/thcrrspndnt/tweetdump.data') as records:
     csv_reader = csv.reader(records, delimiter='\t')
