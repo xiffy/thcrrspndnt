@@ -6,10 +6,9 @@ import os
 class Unshorten:
 
     def __init__(self, url):
-        self.conn = sqlite3.connect( os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                     'data/db.sqlite3'))
+        self.db = Db()
+        self.curs = self.db.conn.cursor()
         self.shorturl = url
-        self.curs = self.conn.cursor()
         self.get()
 
     def get(self):
@@ -23,7 +22,7 @@ class Unshorten:
         if self.longurl:
             return False
         self.curs.execute("insert into unshorten (shorturl, longurl) values (?, ?)", (self.shorturl, longurl,))
-        self.conn.commit()
+        self.db.conn.commit()
         self.longurl = longurl
 
 

@@ -1,6 +1,8 @@
 import os
 import re
+import string
 from flask import Flask, Response, request, render_template
+from collections import defaultdict
 from model.article import Article
 from model.tweet import Tweet
 import settings
@@ -70,6 +72,20 @@ def search():
                               )
     return payload
 
+def wordcount():
+    articles = Article().get_paged(start=0, amount=10000)
+    allwords = defaultdict(lambda: 0)
+    for article in articles:
+        aw = re.sub('['+string.punctuation+']', '', article.title + ' ' + article.description).split()
+        for word in aw:
+            if len(word) > 2:
+                allwords[word.lower()] += 1
+    payload = ''
+    for w in sorted(allwords, key=allwords.get, reverse=True):
+        print(w, allwords[w])
+        payload += '%s: <strong>%s</strong><br/>' % (w, allwords[w])
+    return payload
+
 
 def pager_args():
     start = request.args.get('start', 0)
@@ -86,6 +102,7 @@ def create_thcrrspndnt():
     app.add_url_rule('/author/<name>/rss', view_func=rss_author)
     app.add_url_rule('/about', view_func=about)
     app.add_url_rule('/search', view_func=search)
+    app.add_url_rule('/wordcount', view_func=wordcount)
     return app
 
 
