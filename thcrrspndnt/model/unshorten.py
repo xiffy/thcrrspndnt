@@ -1,6 +1,5 @@
-import sqlite3
 import requests
-import os
+from .db import Db
 
 
 class Unshorten:
