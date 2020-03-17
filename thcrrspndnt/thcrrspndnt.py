@@ -73,7 +73,7 @@ def search():
     return payload
 
 def wordcount():
-    articles = Article().get_paged(start=0, amount=10000)
+    articles = Article().get_paged(start=0, amount=100)
     allwords = defaultdict(lambda: 0)
     for article in articles:
         aw = re.sub('['+string.punctuation+']', '', article.title + ' ' + article.description).split()
