@@ -2,12 +2,17 @@
 <html lang="{{version}}">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     {% if version == 'EN' %}
       <title>the correspondent (english)</title>
        <link rel="alternate" type="application/rss+xml" title="Articles from the Correspondent - thcrrspndnt" href="./rss">
+      <meta name="keywords" content="the correspondent, shared articles, twitter, index, free">
+      <meta name="description" content="thcrrspndnt, indexer of shared van The Correspondent, https://thecorrespondent.com, read all shared Correspondent articles for free via https://molecule.nl/thcrrspndnt/">
    {% else %}
       <title>artikelen van de correspondent </title>
       <link rel="alternate" type="application/rss+xml" title="Artikelen van de  Correspondent - dcrrspndnt" href="./rss">
+      <meta name="keywords" content="de correspondent, gedeelde artikelen, twitter, overzicht, gratis">
+      <meta name="description" content="dcrrspndnt, indexer van gedeelde artikelen van De Correspondent, http://decorrespondent.nl, lees alle gedeelde artikelen op twitter gratis via https://molecule.nl/decorrespondent/">
     {% endif %}
     <link rel="stylesheet" href="{{static_depth|default('.')}}/static/thcrrspndnt.css?v={{cssver|default('vergeten')}}" />
 </head>
