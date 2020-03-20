@@ -27,6 +27,8 @@ class Unshorten:
 
     @staticmethod
     def unshorten(short_url):
+        if 'http' not in short_url:
+            return None
         cache = Unshorten(short_url)
         if cache.longurl:
             return cache.longurl
