@@ -120,7 +120,7 @@ class Tweet:
                 print(".", end="")
                 return Tweet(
                     id=data.get("id"),
-                    message=data.card.get("description"),
+                    message=data.get("content"),
                     urls=[{"url": data.url, "uri": data.uri}],
                     corres_url=corres_url,
                 ).insert()
