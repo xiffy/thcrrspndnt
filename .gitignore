@@ -1,4 +1,5 @@
 /thcrrspndnt/settings.py
+/thcrrspndnt/loc_start.sh
 /venv/
 /.idea/
 *__pycache__*
