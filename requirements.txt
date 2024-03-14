@@ -3,13 +3,13 @@ bs4~=0.0.2
 certifi
 chardet
 Click
-Flask~=3.0.2
+Flask
 idna
 itsdangerous
 Jinja2
 MarkupSafe
 oauthlib
-requests~=2.31.0
+requests
 requests-oauthlib
 rfc3986
 soupsieve
