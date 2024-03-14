@@ -4,12 +4,14 @@ from requests_oauthlib import OAuth1Session
 
 class Tweeter:
     def __init__(self):
-        self.settings = settings.CONFIG['twitter_post']
+        self.settings = settings.CONFIG["twitter_post"]
 
     def send_tweet(self, article):
-        twitter_session = OAuth1Session(self.settings['CONSUMER_KEY'],
-                                        client_secret=self.settings['CONSUMER_SECRET'],)
-        send = self.settings.get('SEND_TWEETS', True)
+        twitter_session = OAuth1Session(
+            self.settings["CONSUMER_KEY"],
+            client_secret=self.settings["CONSUMER_SECRET"],
+        )
+        send = self.settings.get("SEND_TWEETS", True)
         if send:
 
             # twitter_session.post('https://api.twitter.com/1.1/statuses/update.json',
@@ -49,15 +51,16 @@ class Tweeter:
                 resource_owner_key=self.settings["OAUTH_KEY"],
                 resource_owner_secret=self.settings["OAUTH_SECRET"],
             )
-            payload = {"text": "%s: %s - %s" % (article.author, article.title, article.share_url),
-                       'source': 'molecule.nl/thcrrspndnt',
-                       }
+            payload = {
+                "text": "%s: %s - %s"
+                % (article.author, article.title, article.share_url),
+                "source": "molecule.nl/thcrrspndnt",
+            }
 
             # Making the request
-            response = oauth.post(
-                "https://api.twitter.com/2/tweets",
-                json=payload,
-            )
+            response = oauth.post("https://api.twitter.com/2/tweets", json=payload)
+
+
 def main():
     t = Tweeter()
     t.send_tweet("Check")

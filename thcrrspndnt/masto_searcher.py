@@ -8,7 +8,10 @@ from model.article import Article
 class MastoSearch:
     def __init__(self):
         self.search_query = settings.CONFIG["query"]
-        self.mastodon = Mastodon(access_token=settings.CONFIG["access_token"], api_base_url="https://mastodon.nl/", )
+        self.mastodon = Mastodon(
+            access_token=settings.CONFIG["access_token"],
+            api_base_url="https://mastodon.nl/",
+        )
 
     def harvest(self):
         for query in self.search_query:
