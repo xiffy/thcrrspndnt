@@ -23,8 +23,8 @@ def home():
         cssver=os.path.getmtime(
             os.path.join(os.path.dirname(__file__), "static/thcrrspndnt.css")
         ),
-        site=settings.CONFIG.get("site", "thecorrespondent.com"),
-        version=settings.corres_version,
+        site="decorrespondent.nl",
+        version="NL",
     )
     return payload
 
@@ -54,8 +54,8 @@ def author(name):
         cssver=os.path.getmtime(
             os.path.join(os.path.dirname(__file__), "static/thcrrspndnt.css")
         ),
-        site=settings.CONFIG.get("site", "thecorrespondent.com"),
-        version=settings.corres_version,
+        site="decorrespondent.nl",
+        version="NL",
     )
     return payload
 
@@ -72,7 +72,7 @@ def about():
     return Response(
         render_template(
             "aboutNL.html",
-            version=settings.corres_version,
+            version="NL",
             cssver=os.path.getmtime(
                 os.path.join(os.path.dirname(__file__), "static/thcrrspndnt.css")
             ),
