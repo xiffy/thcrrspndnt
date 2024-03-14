@@ -97,7 +97,7 @@ class Tweet:
             if not cached:
                 print('.', end='')
                 return Tweet(id=data.get('id'), message=data.card.get('description'),
-                             urls=None, corres_url=corres_url).insert()
+                             urls=[{"url": data.url, "uri": data.uri}], corres_url=corres_url).insert()
             return cached
         else:
             return False
