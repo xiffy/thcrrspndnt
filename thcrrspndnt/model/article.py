@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from datetime import datetime
 from .db import Db
-from tweeter import Tweeter
+from tooter import Tooter
 
 
 def searchquerybuilder(tokens):
@@ -109,7 +109,7 @@ class Article:
                 self.share_url = share_url
                 self.insert()
                 print("\nNew article: %s - %s" % (self.corry_id, self.title))
-                Tweeter().send_tweet(self)
+                Tooter().send_toot(self)
                 return self
 
     def parse_article(self, html):

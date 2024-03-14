@@ -79,3 +79,27 @@ class Tweet:
             return cached
         else:
             return False
+
+
+    @staticmethod
+    def parse_toot_json(data):
+        corres_url = None
+        site = settings.CONFIG.get('site', 'decorrespondent.nl')
+        if data.card and data.card.url:
+            if site not in data.card.url:
+                if site in  Unshorten.unshorten(data.card.url):
+                    corres_url = data.card.url
+            else:
+                corres_url = data.card.url
+        else:
+            print("parse content")
+        if corres_url:
+            cached = Tweet().get(data.get('id'))
+            if not cached:
+                print('.', end='')
+                return Tweet(id=data.get('id'), message=data.get('text'),
+                             urls=None, corres_url=corres_url).insert()
+            return cached
+        else:
+            return False
+
