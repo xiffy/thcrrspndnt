@@ -31,9 +31,7 @@ def home():
 
 def rss():
     articles = Article().get_paged(start=0, amount=100)
-    payload = render_template(
-        "rss.xml", articles=articles, version="NL"
-    )
+    payload = render_template("rss.xml", articles=articles, version="NL")
     return Response(payload, mimetype="text/xml")
 
 
@@ -62,9 +60,7 @@ def author(name):
 
 def rss_author(name):
     articles = Article().get_author_paged(name, start=0, amount=100)
-    payload = render_template(
-        "rss.xml", articles=articles, version="NL", author=name
-    )
+    payload = render_template("rss.xml", articles=articles, version="NL", author=name)
     return Response(payload, mimetype="text/xml")
 
 
