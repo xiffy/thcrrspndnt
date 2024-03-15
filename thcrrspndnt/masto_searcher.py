@@ -1,6 +1,6 @@
 from mastodon import Mastodon
 import settings
-import datetime
+from datetime import datetime
 from model.tweet import Tweet
 from model.article import Article
 
@@ -15,6 +15,7 @@ class MastoSearch:
 
     def harvest(self):
         for query in self.search_query:
+            print(f"\n{datetime.now()}: searching| ", end="")
             response = self.mastodon.search(query, result_type="statuses")
             for status in response["statuses"]:
                 parsed_status = Tweet.parse_toot_json(status)
