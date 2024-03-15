@@ -15,7 +15,6 @@ class MastoSearch:
 
     def harvest(self):
         for query in self.search_query:
-            print(query)
             response = self.mastodon.search(query, result_type="statuses")
             for status in response["statuses"]:
                 parsed_status = Tweet.parse_toot_json(status)
