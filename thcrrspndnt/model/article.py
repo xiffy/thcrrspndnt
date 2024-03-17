@@ -141,6 +141,12 @@ class Article:
                 print("\nNew article: %s - %s" % (self.corry_id, self.title))
                 Tooter().send_toot(self)
                 return self
+            else:
+                print(result.content)
+                return None
+        else:
+            print(result.status_code)
+            return None
 
     def parse_article(self, html):
         soup = BeautifulSoup(html, features="html.parser")

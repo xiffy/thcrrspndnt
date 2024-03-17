@@ -3,6 +3,7 @@ import settings
 from .db import Db
 from .unshorten import Unshorten
 from .article import get_corry_id, searchquerybuilder
+from urllib.parse import urlparse, urlunparse
 
 
 class Tweet:
@@ -68,6 +69,44 @@ class Tweet:
             values,
         )
         return self.curs.fetchone()[0]
+
+    def find_urls(self, data):
+        urls = []
+        for word in data.split():
+            parsed_url = urlparse(word)
+            if parsed_url.scheme and parsed_url.netloc:
+                urls.append(
+                    urlunparse(
+                        (
+                            parsed_url.scheme,
+                            parsed_url.netloc,
+                            parsed_url.path.replace("…", ""),
+                            None,
+                            None,
+                            None,
+                        )
+                    )
+                )
+        return urls
+
+    def parse_csv(self, data):
+        site = settings.CONFIG.get("site", "decorrespondent.nl")
+        urls = self.find_urls(data["Content"])
+        for url in urls:
+            if site in url:
+                tweet_id = data["Tweet ID"].split(":")[1]
+                cached = Tweet().get(data.get("id"))
+                if not cached:
+                    print(".", end="")
+                    return Tweet(
+                        id=tweet_id,
+                        message=data.get("Content"),
+                        urls=data.get("Tweet Link"),
+                        corres_url=url,
+                    ).insert()
+                return cached
+
+        # if contents = "d"
 
     @staticmethod
     def parse_json(data):
