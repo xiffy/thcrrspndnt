@@ -12,8 +12,10 @@ class Tooter:
 
     def send_toot(self, article):
         send = self.settings.get("SEND_TOOTS", True)
-        #  print(f"would send ==> {article.author}: {article.title} - {article.share_url}")
         if send:
             self.instance.status_post(
                 f"{article.author}: {article.title} - {article.share_url}"
             )
+            print("Toot!")
+        else:
+            print(f"would send ==> {article.author}: {article.title} - {article.share_url}")
