@@ -38,6 +38,7 @@ class Article:
         self.description = description if description else ""
         self.db = Db()
         self.curs = self.db.conn.cursor()
+        self._tooted = False
 
     def get(self, corry_id=None):
         self.curs.execute("select * from article where corry_id = ?", (corry_id,))
@@ -140,6 +141,7 @@ class Article:
                 self.insert()
                 print("\nNew article: %s - %s" % (self.corry_id, self.title))
                 Tooter().send_toot(self)
+                self._tooted = True
                 return self
             else:
                 print(result.content)
