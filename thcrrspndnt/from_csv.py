@@ -14,5 +14,5 @@ with open(settings.CONFIG["tweets_csv"], newline="") as csvfile:
             parsed_status = Tweet().parse_csv(row)
             if parsed_status:
                 article = Article.maybe_find_or_create(parsed_status.corres_url)
-                if article.tooted:
+                if article and article.tooted:
                     break
