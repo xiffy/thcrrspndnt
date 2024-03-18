@@ -28,6 +28,7 @@ class Article:
         created_at=None,
         published_at=None,
         description=None,
+        tooted=False,
     ):
         self.corry_id = corry_id
         self.share_url = share_url
@@ -36,9 +37,9 @@ class Article:
         self.created_at = created_at
         self.published_at = published_at
         self.description = description if description else ""
+        self.tooted = tooted
         self.db = Db()
         self.curs = self.db.conn.cursor()
-        self._tooted = False
 
     def get(self, corry_id=None):
         self.curs.execute("select * from article where corry_id = ?", (corry_id,))
@@ -141,7 +142,7 @@ class Article:
                 self.insert()
                 print("\nNew article: %s - %s" % (self.corry_id, self.title))
                 Tooter().send_toot(self)
-                self._tooted = True
+                self.tooted = True
                 return self
             else:
                 print(result.content)
