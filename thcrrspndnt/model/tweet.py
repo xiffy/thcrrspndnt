@@ -95,7 +95,7 @@ class Tweet:
         for url in urls:
             if site in url:
                 tweet_id = data["Tweet ID"].split(":")[1]
-                cached = Tweet().get(data.get("id"))
+                cached = Tweet().get(tweet_id)
                 if not cached:
                     print(".", end="")
                     return Tweet(
