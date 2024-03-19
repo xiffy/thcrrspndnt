@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import settings
 from .db import Db
@@ -93,6 +94,8 @@ class Tweet:
         site = settings.CONFIG.get("site", "decorrespondent.nl")
         urls = self.find_urls(data["Content"])
         for url in urls:
+            if site not in url:
+                url = Unshorten.unshorten(url)
             if site in url:
                 tweet_id = data["Tweet ID"].split(":")[1]
                 cached = Tweet().get(tweet_id)
