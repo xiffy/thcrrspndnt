@@ -30,6 +30,14 @@ class Unshorten:
         self.db.conn.commit()
         self.longurl = longurl
 
+    def as_class(self):
+        if self.longurl:
+            return self.longurl
+        result = requests.get(self.shorturl)
+        if not result.url == self.shorturl:
+            self.save(result.url)
+        return result.url
+
     @staticmethod
     def unshorten(short_url):
         print(short_url)

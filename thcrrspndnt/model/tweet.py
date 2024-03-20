@@ -95,7 +95,7 @@ class Tweet:
         urls = self.find_urls(data["Content"])
         for url in urls:
             if site not in url:
-                url = Unshorten.unshorten(url)
+                url = Unshorten(url).as_class()
             if site in url:
                 tweet_id = data["Tweet ID"].split(":")[1]
                 cached = Tweet().get(tweet_id)
