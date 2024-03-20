@@ -53,6 +53,7 @@ class Tweet:
         except sqlite3.OperationalError:
             print(f"Error while inserting: {self.id}")
             self.db.conn.rollback()
+            self.db.conn.close()
         return self
 
     def get_tweetcount_filtered(self, author=None):
