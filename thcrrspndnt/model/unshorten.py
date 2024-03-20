@@ -32,6 +32,7 @@ class Unshorten:
 
     @staticmethod
     def unshorten(short_url):
+        print(short_url)
         if "http" not in short_url:
             return None
         cache = Unshorten(short_url)
