@@ -8,7 +8,8 @@ class Unshorten:
         self.curs = self.db.conn.cursor()
         self.shorturl = url
         self.longurl = None
-        self.get()
+        if url:
+            self.get()
 
     def get(self):
         self.curs.execute(
