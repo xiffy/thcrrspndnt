@@ -18,6 +18,7 @@ class Unshorten:
             "select * from unshorten where  shorturl = ?", (self.shorturl,)
         )
         found = self.curs.fetchone()
+        print(found)
         _, self.longurl = found if found else (None, None)
 
     def save(self, longurl):
