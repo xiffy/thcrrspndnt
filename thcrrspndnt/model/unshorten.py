@@ -5,12 +5,13 @@ from .db import Db
 
 
 class Unshorten:
-    def __init__(self, url):
-        self.db = Db()
+    def __init__(self, url=None, db=None):
+        self.db = db if db else Db()
         self.curs = self.db.conn.cursor()
         self.shorturl = url
         self.longurl = None
-        self.get()
+        if url:
+            self.get()
 
     def get(self):
         self.curs.execute(

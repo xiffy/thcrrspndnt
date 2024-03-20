@@ -11,14 +11,14 @@ from urllib.parse import urlparse, urlunparse
 
 class Tweet:
     def __init__(
-        self, id=None, message=None, urls=None, corres_url=None, corry_id=None
+        self, id=None, message=None, urls=None, corres_url=None, corry_id=None, db=None
     ):
         self.id = id
         self.message = message
         self.urls = json.dumps(urls) if urls else json.dumps({})
         self.corres_url = corres_url
         self.corry_id = corry_id
-        self.db = Db()
+        self.db = db if db else Db()
         self.curs = self.db.conn.cursor()
 
     def __str__(self):
@@ -51,7 +51,7 @@ class Tweet:
         try:
             self.db.conn.commit()
         except sqlite3.OperationalError:
-            print(f"Error while inserting: {self.id}")
+            print(f"Error while inserting tweet: {self.id}")
             self.db.conn.rollback()
             self.db.conn.close()
         return self
@@ -98,17 +98,16 @@ class Tweet:
                 )
         return urls
 
-    @staticmethod
-    def parse_csv(data):
+    def parse_csv(self, data):
         site = settings.CONFIG.get("site", "decorrespondent.nl")
-        urls = Tweet.find_urls(data["Content"])
+        urls = self.find_urls(data["Content"])
         for url in urls:
             if site not in url:
                 print(f"Go short: {url}")
-                url = Unshorten(url).as_class()
+                url = Unshorten(db=self.db, url=url).as_class()
             if site in url:
                 tweet_id = data["Tweet ID"].split(":")[1]
-                cached = Tweet().get(tweet_id)
+                cached = self.get(tweet_id)
                 if not cached:
                     print(".", end="")
                     return Tweet(
@@ -116,6 +115,7 @@ class Tweet:
                         message=data.get("Content"),
                         urls=data.get("Tweet Link"),
                         corres_url=url,
+                        db=self.db
                     ).insert()
                 return cached
 
@@ -154,20 +154,20 @@ class Tweet:
         else:
             return False
 
-    @staticmethod
-    def parse_toot_json(data):
+    def parse_toot_json(self,data):
         corres_url = None
         site = settings.CONFIG.get("site", "decorrespondent.nl")
         if data.card and data.card.url:
             if site not in data.card.url:
-                if site in Unshorten.unshorten(data.card.url):
+                if site in Unshorten(db=self.db, url=data.card.url).as_class():
                     corres_url = data.card.url
             else:
                 corres_url = data.card.url
         else:
             print("parse content")
         if corres_url:
-            cached = Tweet().get(data.get("id"))
+            tweet = Tweet(db=self.db)
+            cached = tweet.get(data.get("id"))
             if not cached:
                 print(".", end="")
                 return Tweet(
@@ -175,6 +175,7 @@ class Tweet:
                     message=data.get("content"),
                     urls=[{"url": data.url, "uri": data.uri}],
                     corres_url=corres_url,
+                    db=self.db,
                 ).insert()
             return cached
         else:
