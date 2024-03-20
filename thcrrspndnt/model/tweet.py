@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
+import sqlite3
+
 import settings
 from .db import Db
 from .unshorten import Unshorten
@@ -46,7 +48,11 @@ class Tweet:
                 get_corry_id(self.corres_url),
             ),
         )
-        self.db.conn.commit()
+        try:
+            self.db.conn.commit()
+        except sqlite3.OperationalError:
+            print(f"Error while inserting: {self.id}")
+            self.db.conn.rollback()
         return self
 
     def get_tweetcount_filtered(self, author=None):
