@@ -40,7 +40,7 @@ class Unshorten:
         if self.longurl:
             return self.longurl
         result = requests.get(self.shorturl)
-        if not result.url == self.shorturl:
+        if result.url and not result.url == self.shorturl:
             self.save(result.url)
         return result.url
 
