@@ -148,7 +148,7 @@ class Article:
                 print(result.content)
                 return None
         else:
-            print(result.status_code)
+            print(f"Erreur: {result.status_code}")
             return None
 
     def parse_article(self, html):

@@ -18,7 +18,7 @@ class Unshorten:
             "select * from unshorten where  shorturl = ?", (self.shorturl,)
         )
         found = self.curs.fetchone()
-        print(found)
+        print(f"unshorten.get: {found}")
         _, self.longurl = found if found else (None, None)
 
     def save(self, longurl):
@@ -51,7 +51,7 @@ class Unshorten:
 
     @staticmethod
     def unshorten(short_url):
-        print(short_url)
+        print(f"Unshorten.static: {short_url}")
         if "http" not in short_url:
             return None
         cache = Unshorten(short_url)
