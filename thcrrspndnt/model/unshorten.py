@@ -21,6 +21,7 @@ class Unshorten:
         _, self.longurl = found if found else (None, None)
 
     def save(self, longurl):
+        print(f"Saving: {longurl}")
         if not longurl:
             print("No longurl")
             return False
