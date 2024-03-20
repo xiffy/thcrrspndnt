@@ -37,7 +37,7 @@ class Unshorten:
         try:
             self.db.conn.commit()
         except sqlite3.OperationalError:
-            print(f"Not inserted: {self.shorturl} => {longurl}")
+            print(f"Not inserted: (\"{self.shorturl}\", \"{longurl}\")")
             self.db.conn.rollback()
         self.longurl = longurl
 
