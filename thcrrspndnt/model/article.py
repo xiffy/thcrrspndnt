@@ -148,7 +148,8 @@ class Article:
                 print(result.content)
                 return None
         else:
-            print(f"Erreur: {result.status_code}")
+            print(f"Erreur: {result.status_code} - {share_url}")
+            self.db.conn.rollback()
             return None
 
     def parse_article(self, html):
