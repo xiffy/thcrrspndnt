@@ -77,7 +77,8 @@ class Tweet:
         )
         return self.curs.fetchone()[0]
 
-    def find_urls(self, data):
+    @staticmethod
+    def find_urls(data):
         urls = []
         for word in data.split():
             parsed_url = urlparse(word)
@@ -96,9 +97,10 @@ class Tweet:
                 )
         return urls
 
-    def parse_csv(self, data):
+    @staticmethod
+    def parse_csv(data):
         site = settings.CONFIG.get("site", "decorrespondent.nl")
-        urls = self.find_urls(data["Content"])
+        urls = Tweet.find_urls(data["Content"])
         for url in urls:
             if site not in url:
                 print(f"Go short: {url}")

@@ -10,12 +10,11 @@ class Unshorten:
         self.curs = self.db.conn.cursor()
         self.shorturl = url
         self.longurl = None
-        if url:
-            self.get()
+        self.get()
 
     def get(self):
         self.curs.execute(
-            "select * from unshorten where  shorturl = ?", (self.shorturl,)
+            "select * from unshorten where shorturl = ?", (self.shorturl,)
         )
         found = self.curs.fetchone()
         print(f"unshorten.get: {found}")
