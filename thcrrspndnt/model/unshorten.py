@@ -1,3 +1,5 @@
+import sqlite3
+
 import requests
 from .db import Db
 
@@ -27,7 +29,11 @@ class Unshorten:
             "insert into unshorten (shorturl, longurl) values (?, ?)",
             (self.shorturl, longurl),
         )
-        self.db.conn.commit()
+        try:
+            self.db.conn.commit()
+        except sqlite3.OperationalError:
+            print(f"Not inserted: {self.shorturl} => {self.longurl}")
+            self.db.conn.rollback()
         self.longurl = longurl
 
     def as_class(self):
