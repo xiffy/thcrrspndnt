@@ -29,6 +29,7 @@ class Article:
         published_at=None,
         description=None,
         tooted=False,
+        db=None,
     ):
         self.corry_id = corry_id
         self.share_url = share_url
@@ -38,7 +39,7 @@ class Article:
         self.published_at = published_at
         self.description = description if description else ""
         self.tooted = tooted
-        self.db = Db()
+        self.db = db if db else Db()
         self.curs = self.db.conn.cursor()
 
     def get(self, corry_id=None):
