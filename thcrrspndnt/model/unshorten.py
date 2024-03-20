@@ -21,6 +21,9 @@ class Unshorten:
         _, self.longurl = found if found else (None, None)
 
     def save(self, longurl):
+        if not longurl:
+            print("No longurl")
+            return False
         if not self.shorturl:
             return False
         if self.longurl:
@@ -40,7 +43,7 @@ class Unshorten:
         if self.longurl:
             return self.longurl
         result = requests.get(self.shorturl)
-        if result.url and not result.url == self.shorturl:
+        if result.url and result.url != self.shorturl:
             self.save(result.url)
         return result.url
 
