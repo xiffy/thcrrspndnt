@@ -12,6 +12,7 @@ class MastoSearch:
         self.mastodon = Mastodon(
             access_token=settings.CONFIG["access_token"],
             api_base_url="https://mastodon.nl/",
+            version_check_mode="none",
         )
         self.db = Db()
 
