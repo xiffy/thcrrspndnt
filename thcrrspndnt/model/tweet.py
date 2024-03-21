@@ -103,7 +103,6 @@ class Tweet:
         urls = self.find_urls(data["Content"])
         for url in urls:
             if site not in url:
-                print(f"Go short: {url}")
                 url = Unshorten(db=self.db, url=url).as_class()
             if site in url:
                 tweet_id = data["Tweet ID"].split(":")[1]
