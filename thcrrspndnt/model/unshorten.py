@@ -41,9 +41,12 @@ class Unshorten:
     def as_class(self):
         if self.longurl:
             return self.longurl
-        result = requests.get(self.shorturl)
-        if result.url and result.url != self.shorturl:
-            self.save(result.url)
+        try:
+            result = requests.get(self.shorturl)
+            if result.url and result.url != self.shorturl:
+                self.save(result.url)
+        except requests.exceptions.InvalidSchema:
+            return self.shorturl
         return result.url
 
     @staticmethod
