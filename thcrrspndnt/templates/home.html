@@ -3,11 +3,7 @@
 
 {% block content %}
 <table>
-    {% if version == 'EN' %}
-        {% include 'blocks/table_head_EN.html' %}
-    {% else %}
-        {% include 'blocks/table_head_NL.html' %}
-    {% endif %}
+    {% include 'blocks/table_head_NL.html' %}
 
     {% include 'blocks/article_table_body.html' %}
 
