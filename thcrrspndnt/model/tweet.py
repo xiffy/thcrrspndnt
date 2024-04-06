@@ -126,12 +126,13 @@ class Tweet:
             return url
         parsed_url = urlparse(url)
         path = parsed_url.path
-        if len(parsed_url.path.split("/")) > 3:
-            path = "/".join(parsed_url.path.split("/")[:3])
+        if len(parsed_url.path.split("/")) > 4:
+            path = "/".join(parsed_url.path.split("/")[:4])
         print(path)
         netloc = parsed_url.netloc
         if "open" in parsed_url.netloc:
             netloc = site
+        print("==> ", end="")
         print(urlunparse((parsed_url.scheme, netloc, path, None, None, None)))
         return urlunparse((parsed_url.scheme, netloc, path, None, None, None))
 
