@@ -1,6 +1,7 @@
-thcrrspndnt/settings.py
-venv/
-thcrrspndnt/model/data/*.sqlite3
+/thcrrspndnt/settings.py
+/thcrrspndnt/loc_start.sh
+/venv/
 /.idea/
 *__pycache__*
 nohup*out
+/thcrrspndnt/model/db/db.NL.sqlite3

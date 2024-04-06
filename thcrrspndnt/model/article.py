@@ -4,55 +4,77 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from datetime import datetime
 from .db import Db
-from tweeter import Tweeter
+from tooter import Tooter
 
 
 def searchquerybuilder(tokens):
-    fields = ['title', 'description', 'author']
+    fields = ["title", "description", "author"]
     where = []
     values = []
     for field in fields:
         for token in tokens:
-            where.append('{0} like ?'.format(field))
-            values.append('%{0}%'.format(token.replace('"', '')))
+            where.append("{0} like ?".format(field))
+            values.append("%{0}%".format(token.replace('"', "")))
     return (where, values)
 
 
 class Article:
-
-    def __init__(self, corry_id=None, share_url=None, title=None, author=None,
-                 created_at=None, published_at=None, description=None):
+    def __init__(
+        self,
+        corry_id=None,
+        share_url=None,
+        title=None,
+        author=None,
+        created_at=None,
+        published_at=None,
+        description=None,
+        tooted=False,
+        db=None,
+    ):
         self.corry_id = corry_id
         self.share_url = share_url
         self.title = title
         self.author = author
         self.created_at = created_at
         self.published_at = published_at
-        self.description = description if description else ''
-        self.db = Db()
+        self.description = description if description else ""
+        self.tooted = tooted
+        self.db = db if db else Db()
         self.curs = self.db.conn.cursor()
 
     def get(self, corry_id=None):
         self.curs.execute("select * from article where corry_id = ?", (corry_id,))
         row = self.curs.fetchone()
         if row:
-            self.corry_id, self.share_url, self.title, self.author, self.created_at,\
-                self.published_at, self.description = row
+            self.corry_id, self.share_url, self.title, self.author, self.created_at, self.published_at, self.description = (
+                row
+            )
             return self
         return False
 
     def insert(self):
         self.created_at = str(datetime.utcnow())
-        self.curs.execute("insert into article (corry_id, share_url, title, author, created_at, "
-                          "published_at, description)"
-                          "values (?, ?, ?, ?, ?, ?, ?)", (self.corry_id, self.share_url, self.title,
-                                                           self.author, self.created_at, self.published_at,
-                                                           self.description))
+        self.curs.execute(
+            "insert into article (corry_id, share_url, title, author, created_at, "
+            "published_at, description)"
+            "values (?, ?, ?, ?, ?, ?, ?)",
+            (
+                self.corry_id,
+                self.share_url,
+                self.title,
+                self.author,
+                self.created_at,
+                self.published_at,
+                self.description,
+            ),
+        )
         self.db.conn.commit()
 
     @property
     def tweetcount(self):
-        self.curs.execute("select count(id) from tweet where corry_id = ?", (self.corry_id,))
+        self.curs.execute(
+            "select count(id) from tweet where corry_id = ?", (self.corry_id,)
+        )
         return self.curs.fetchone()[0]
 
     @property
@@ -60,13 +82,18 @@ class Article:
         return self.published_at[:10]
 
     def get_paged(self, start=0, amount=10):
-        self.curs.execute("select * from article order by published_at desc limit ?,?", (start, amount,))
+        self.curs.execute(
+            "select * from article order by published_at desc limit ?,?",
+            (start, amount),
+        )
         paged_rows = self.curs.fetchall()
         return [Article(*row) for row in paged_rows]
 
     def get_author_paged(self, author, start=0, amount=10):
-        self.curs.execute("select* from article where author = ? order by published_at desc limit ?,?",
-                          (author, start, amount, ))
+        self.curs.execute(
+            "select* from article where author = ? order by published_at desc limit ?,?",
+            (author, start, amount),
+        )
         paged_rows = self.curs.fetchall()
         return [Article(*row) for row in paged_rows]
 
@@ -74,19 +101,25 @@ class Article:
         if not author:
             self.curs.execute("select count(corry_id) from article")
         else:
-            self.curs.execute("select count(corry_id) from article where author = ?", (author,))
+            self.curs.execute(
+                "select count(corry_id) from article where author = ?", (author,)
+            )
         return self.curs.fetchone()[0]
 
     def get_searchcount(self, tokens):
         where, values = searchquerybuilder(tokens)
-        self.curs.execute('select count(*) from article where %s' % ' or '.join(where), values)
+        self.curs.execute(
+            "select count(*) from article where %s" % " or ".join(where), values
+        )
         return self.curs.fetchone()[0]
 
     def get_search(self, tokens=None, start=0, amount=10):
         where, values = searchquerybuilder(tokens)
         values.append(start)
         values.append(amount)
-        self.curs.execute('select * from article where %s limit ?,?' % ' or '.join(where), values)
+        self.curs.execute(
+            "select * from article where %s limit ?,?" % " or ".join(where), values
+        )
         paged_rows = self.curs.fetchall()
         return [Article(*row) for row in paged_rows]
 
@@ -109,26 +142,36 @@ class Article:
                 self.share_url = share_url
                 self.insert()
                 print("\nNew article: %s - %s" % (self.corry_id, self.title))
-                Tweeter().send_tweet(self)
+                Tooter().send_toot(self)
+                self.tooted = True
                 return self
+            else:
+                print(result.content)
+                return None
+        else:
+            print(f"Erreur: {result.status_code} - {share_url}")
+            self.db.conn.rollback()
+            return None
 
     def parse_article(self, html):
         soup = BeautifulSoup(html, features="html.parser")
-        for author in soup.findAll(attrs={'name': 'author'}):
-            self.author = author['content']
-        for meta in soup.findAll(property=[re.compile('og:.*'), re.compile('article:.*')]):
-            prop = meta.attrs.get('property', None)
-            value = meta.attrs.get('content', None)
-            if prop == 'og:title':
+        for author in soup.findAll(attrs={"name": "author"}):
+            self.author = author["content"]
+        for meta in soup.findAll(
+            property=[re.compile("og:.*"), re.compile("article:.*")]
+        ):
+            prop = meta.attrs.get("property", None)
+            value = meta.attrs.get("content", None)
+            if prop == "og:title":
                 self.title = value
-            if prop == 'og:description':
+            if prop == "og:description":
                 self.description = value
-            if prop == 'article:published_time':
+            if prop == "article:published_time":
                 self.published_at = value
 
 
 def get_corry_id(url):
-    path = urlparse(url)[2].split('/')
+    path = urlparse(url)[2].split("/")
     if len(path) > 3 and path[1].isdigit():
         return path[1]
     else:

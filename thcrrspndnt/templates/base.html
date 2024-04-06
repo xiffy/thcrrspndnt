@@ -1,50 +1,29 @@
 <!DOCTYPE html>
-<html lang="{{version}}">
+<html lang="{{ version }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% if version == 'EN' %}
-      <title>the correspondent (english)</title>
-       <link rel="alternate" type="application/rss+xml" title="Articles from the Correspondent - thcrrspndnt" href="./rss">
-      <meta name="keywords" content="the correspondent, shared articles, twitter, index, free">
-      <meta name="description" content="thcrrspndnt, indexer of shared van The Correspondent, https://thecorrespondent.com, read all shared Correspondent articles for free via https://molecule.nl/thcrrspndnt/">
-   {% else %}
-      <title>artikelen van de correspondent </title>
-      <link rel="alternate" type="application/rss+xml" title="Artikelen van de  Correspondent - dcrrspndnt" href="./rss">
-      <meta name="keywords" content="de correspondent, gedeelde artikelen, twitter, overzicht, gratis">
-      <meta name="description" content="dcrrspndnt, indexer van gedeelde artikelen van De Correspondent, http://decorrespondent.nl, lees alle gedeelde artikelen op twitter gratis via https://molecule.nl/decorrespondent/">
-    {% endif %}
-    <link rel="stylesheet" href="{{static_depth|default('.')}}/static/thcrrspndnt.css?v={{cssver|default('vergeten')}}" />
+    <title>artikelen van de correspondent </title>
+    <link rel="alternate" type="application/rss+xml" title="Gedeelde artikelen van de  Correspondent - dcrrspndnt"
+          href="./rss">
+    <meta name="keywords" content="de correspondent, gedeelde artikelen, twitter, overzicht, gratis">
+    <meta name="description"
+          content="dcrrspndnt, indexer van gedeelde artikelen van De Correspondent, http://decorrespondent.nl, lees alle gedeelde artikelen op twitter gratis via https://molecule.nl/decorrespondent/">
+    <link rel="stylesheet"
+          href="{{ static_depth|default('.') }}/static/thcrrspndnt.css?v={{ cssver|default('vergeten') }}"/>
 </head>
 <body>
 
-<h1><a href="{{static_depth|default('.')}}">
-    {% if version == 'EN' %} Articles from the Correspondent
-    {% else %} Artikelen van de Correspondent
-    {% endif %}
-</a>
-    {% include 'blocks/search_input.html' %}
-
+<h1><a href="{{ static_depth|default('.') }}">Artikelen van de Correspondent</a>{% include 'blocks/search_input.html' %}
 </h1>
 
 <aside id="buttons">
-    <div class="switch">
-    {% if version == 'EN' %}
-    <a href="/decorrespondent" title="Dutch Articles"><img class="flag" src="{{static_depth|default('.')}}/static/nederlandse-vlagg.png" /></a>
-    {% else %}
-    <a href="/thcrrspndnt" title="Engelstalige artikelen"><img class="flag" src="{{static_depth|default('.')}}/static/british-america-flag.png" /></a>
-    {% endif %}
-     </div>
     <div class="rss">
-    <a href="./rss" alt="RSS-Feed" title="Follow in a RSS Reader" id="rsslink">
-        <img src="{{static_depth|default('.')}}/static/rss.png" /></a>
+        <a href="./rss" alt="RSS-Feed" title="Follow in a RSS Reader" id="rsslink">
+            <img src="{{ static_depth|default('.') }}/static/rss.png"/></a>
     </div>
-    <div class="followtwitter">
-    {% if version == 'EN' %}
-    <a href="https://twitter.com/thcrsspndnt" ><img src="{{static_depth|default('.')}}/static/twitter.jpg" /></a>
-    {% else %}
-    <a href="https://twitter.com/dcrrspndnt" ><img src="{{static_depth|default('.')}}/static/twitter.jpg" /></a>
-    {% endif %}
+    <div class="followmastodon">
+        <a href="https://masto.nu/@dcrrspndnt"><img src="{{ static_depth|default('.') }}/static/mastodon.png" width="40px"/></a>
     </div>
 
 </aside>
@@ -52,8 +31,20 @@
 {% block content %}
 {% endblock %}
 
-<footer><span class="bye">brought to you by <a href="https://twitter.com/xiffy" class="meme">@xiffy</a> <a href="https://github.com/xiffy/thcrrspndnt" title="source on github"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="simple-svg" data-icon="mdi-github-circle" data-inline="false"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33c.85 0 1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" fill="orange"></path></svg></a>  (zero ads, nada trackers, no webfonts, absent javascript)</span>
-    <span class="about"><a href="{{static_depth|default('.')}}/about">about</a></span>
+<footer><span class="bye">brought to you by <a href="https://twitter.com/xiffy" class="meme">@xiffy</a> <a
+        href="https://github.com/xiffy/thcrrspndnt" title="source on github"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                                  aria-hidden="true" width="1em"
+                                                                                  height="1em"
+                                                                                  style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
+                                                                                  preserveAspectRatio="xMidYMid meet"
+                                                                                  viewBox="0 0 24 24" class="simple-svg"
+                                                                                  data-icon="mdi-github-circle"
+                                                                                  data-inline="false"><path
+        d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33c.85 0 1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"
+        fill="orange"></path></svg></a>  (zero ads, nada trackers, no webfonts, absent javascript)</span>
+    <span class="about"><a href="{{ static_depth|default('.') }}/about">about</a> <a rel="me"
+                                                                                     href="https://masto.nu/@dcrrspndnt">Mastodon</a> </span>
 </footer>
 </body>
 </html>
