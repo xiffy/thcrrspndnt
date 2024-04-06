@@ -102,6 +102,7 @@ class Tweet:
         site = settings.CONFIG.get("site", "decorrespondent.nl")
         urls = self.find_urls(data["Content"])
         for url in urls:
+            url = self.clean_url(url)
             if site not in url:
                 url = Unshorten(db=self.db, url=url).as_class()
             if site in url:
@@ -114,11 +115,21 @@ class Tweet:
                         message=data.get("Content"),
                         urls=data.get("Tweet Link"),
                         corres_url=url,
-                        db=self.db
+                        db=self.db,
                     ).insert()
                 return cached
 
-        # if contents = "d"
+    def clean_url(self, url):
+        site = settings.CONFIG.get("site", "decorrespondent.nl")
+        parsed_url = urlparse(url)
+        path = parsed_url.path
+        if len(parsed_url.path.split("/")) > 3:
+            path = "/".join(parsed_url.path.split("/")[:3])
+        print(path)
+        netloc = parsed_url.netloc
+        if "open" in parsed_url.netloc:
+            netloc = site
+        return urlunparse(parsed_url.scheme, netloc, path, None, None, None)
 
     @staticmethod
     def parse_json(data):
@@ -153,7 +164,7 @@ class Tweet:
         else:
             return False
 
-    def parse_toot_json(self,data):
+    def parse_toot_json(self, data):
         corres_url = None
         site = settings.CONFIG.get("site", "decorrespondent.nl")
         if data.card and data.card.url:
