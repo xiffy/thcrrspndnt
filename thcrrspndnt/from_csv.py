@@ -13,4 +13,4 @@ with open(settings.CONFIG["tweets_csv"], newline="") as csvfile:
         tweet = Tweet(db=db)
         parsed_status = tweet.parse_csv(row)
         if parsed_status:
-            article = Article.maybe_find_or_create(parsed_status.corres_url)
+            article = Article.maybe_find_or_create(tweet.clean_url(parsed_status.corres_url))
