@@ -120,7 +120,7 @@ class Tweet:
                 return cached
 
     def clean_url(self, url):
-        print(url)
+        # print(url)
         site = settings.CONFIG.get("site", "decorrespondent.nl")
         if site not in url:
             return url
@@ -128,7 +128,7 @@ class Tweet:
         path = parsed_url.path
         if len(parsed_url.path.split("/")) > 4:
             path = "/".join(parsed_url.path.split("/")[:4])
-        print(path)
+        # print(path)
         netloc = parsed_url.netloc
         if "open" in parsed_url.netloc:
             netloc = site
