@@ -120,7 +120,10 @@ class Tweet:
                 return cached
 
     def clean_url(self, url):
+        print(url)
         site = settings.CONFIG.get("site", "decorrespondent.nl")
+        if site not in url:
+            return url
         parsed_url = urlparse(url)
         path = parsed_url.path
         if len(parsed_url.path.split("/")) > 3:
