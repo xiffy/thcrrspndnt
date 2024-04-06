@@ -129,8 +129,8 @@ class Tweet:
         if len(parsed_url.path.split("/")) > 4:
             path = "/".join(parsed_url.path.split("/")[:4])
         netloc = site
-        print("==> ", end="")
-        print(urlunparse((parsed_url.scheme, netloc, path, None, None, None)))
+        #print("==> ", end="")
+        #print(urlunparse((parsed_url.scheme, netloc, path, None, None, None)))
         return urlunparse((parsed_url.scheme, netloc, path, None, None, None))
 
     @staticmethod
