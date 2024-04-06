@@ -132,6 +132,7 @@ class Tweet:
         netloc = parsed_url.netloc
         if "open" in parsed_url.netloc:
             netloc = site
+        print(urlunparse((parsed_url.scheme, netloc, path, None, None, None)))
         return urlunparse((parsed_url.scheme, netloc, path, None, None, None))
 
     @staticmethod
