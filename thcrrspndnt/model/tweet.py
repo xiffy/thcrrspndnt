@@ -102,9 +102,9 @@ class Tweet:
         site = settings.CONFIG.get("site", "decorrespondent.nl")
         urls = self.find_urls(data["Content"])
         for url in urls:
-            url = self.clean_url(url)
             if site not in url:
                 url = Unshorten(db=self.db, url=url).as_class()
+            url = self.clean_url(url)
             if site in url:
                 tweet_id = data["Tweet ID"].split(":")[1]
                 cached = self.get(tweet_id)
