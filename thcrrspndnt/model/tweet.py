@@ -131,7 +131,7 @@ class Tweet:
 
         if len(parsed_url.path.split("/")) == 4 and len(path.split("/")[-1:][0]) > 36:
             token = parsed_url.path.split("/")[-1:][0][0:36]
-            new_path = parsed_url.path.split("/")[0:2]
+            new_path = parsed_url.path.split("/")[0:3]
             new_path.append(token)
             path = "/".join(new_path)
             print(f"Corrected URL: {path}")
