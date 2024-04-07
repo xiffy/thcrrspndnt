@@ -134,7 +134,6 @@ class Tweet:
             new_path = parsed_url.path.split("/")[0:3]
             new_path.append(token)
             path = "/".join(new_path)
-            print(f"Corrected URL: {path}")
 
         netloc = site
         #  print("==> ", end="")
