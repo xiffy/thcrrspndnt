@@ -1,5 +1,6 @@
 import sqlite3
 
+import settings
 import requests
 from .db import Db
 
@@ -34,7 +35,7 @@ class Unshorten:
         try:
             self.db.conn.commit()
         except sqlite3.OperationalError:
-            print(f"Not inserted: (\"{self.shorturl}\", \"{longurl}\")")
+            print(f'Not inserted: ("{self.shorturl}", "{longurl}")')
             self.db.conn.rollback()
         self.longurl = longurl
 
@@ -43,7 +44,11 @@ class Unshorten:
             return self.longurl
         try:
             result = requests.get(self.shorturl)
-            if result.url and result.url != self.shorturl:
+            if (result.url and result.url != self.shorturl) or (
+                len([q for q in settings.CONFIG["query"] if q in self.shorturl]) > 0
+            ):
+                if not result.url:
+                    self.save(f"-{self.shorturl}-")
                 self.save(result.url)
         except requests.exceptions.InvalidSchema:
             return self.shorturl
