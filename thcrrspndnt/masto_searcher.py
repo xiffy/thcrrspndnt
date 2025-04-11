@@ -17,7 +17,7 @@ class MastoSearch:
 
     def harvest(self):
         for query in self.search_query:
-            print(f"\n{datetime.now()}: searching| ", end="")
+            print(f"\n{datetime.now()}: searching {query}| ", end="")
             response = self.mastodon.search(query, result_type="statuses")
             for status in response["statuses"]:
                 tweet = Tweet(db=self.db)

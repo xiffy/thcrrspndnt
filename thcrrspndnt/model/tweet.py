@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import sqlite3
+import re
 
 import settings
 from .db import Db
@@ -82,6 +83,8 @@ class Tweet:
     def find_urls(data):
         urls = []
         for word in data.split():
+            word = word.lstrip('href=')
+            word = word.strip('\"')
             parsed_url = urlparse(word)
             if parsed_url.scheme and parsed_url.netloc:
                 urls.append(
@@ -184,7 +187,17 @@ class Tweet:
                 corres_url = data.card.url
         else:
             print("parse content")
-        if corres_url:
+            # print(data)
+            urls = self.find_urls(data.content)
+            print(urls)
+            for url in urls:
+                if site not in url:
+                    url = Unshorten(db=self.db, url=url).as_class()
+                
+                if site in url:
+                    corres_url = self.clean_url(url) 
+                print(url, corres_url)
+        if corres_url and site in corres_url:
             tweet = Tweet(db=self.db)
             cached = tweet.get(data.get("id"))
             if not cached:
