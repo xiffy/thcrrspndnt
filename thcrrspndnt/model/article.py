@@ -1,5 +1,6 @@
 import requests
 import re
+import time
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from datetime import datetime
@@ -134,7 +135,12 @@ class Article:
         return Article().cache_article(share_url=share_url, corry_id=corry_id)
 
     def cache_article(self, share_url=None, corry_id=None):
-        result = requests.get(share_url)
+        if not share_url.startswith("http"):
+            print("Not a valid: URL: %s" % share_url)
+            return None
+        time.sleep(3)
+        headers = {"User-Agent": "Chrome/Windows: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"}
+        result = requests.get(share_url, headers=headers)
         if result.status_code == 200:
             self.parse_article(result.content)
             if self.title:
@@ -157,17 +163,19 @@ class Article:
         soup = BeautifulSoup(html, features="html.parser")
         for author in soup.findAll(attrs={"name": "author"}):
             self.author = author["content"]
+        for desc in soup.findAll(attrs={"name":"description"}):
+            self.description = desc["content"]
+            break
         for meta in soup.findAll(
-            property=[re.compile("og:.*"), re.compile("article:.*")]
+            property=[re.compile("og:.*"), re.compile("article:.*"), re.compile("twitter:.*")]
         ):
             prop = meta.attrs.get("property", None)
             value = meta.attrs.get("content", None)
-            if prop == "og:title":
+            if prop == "twitter:title":
                 self.title = value
-            if prop == "og:description":
-                self.description = value
             if prop == "article:published_time":
                 self.published_at = value
+        self.title = soup.find("title").text
 
 
 def get_corry_id(url):
